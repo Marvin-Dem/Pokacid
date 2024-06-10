@@ -1,3 +1,5 @@
+import { buttonTypes } from "~/utils/pokeTypes";
+
 export default function PokedexSite() {
     return (
         <div>
@@ -6,8 +8,13 @@ export default function PokedexSite() {
                 <button className="button reset">Reset Filter</button>
             </div>
             <div className="button-wrapper">
-                <button className="button water filter-button">water</button>
-                <button className="button fire filter-button">fire</button>
+                {buttonTypes.map((item) => {
+                    return (
+                        <button className={`button ${item} filter-button `}>
+                            {item}
+                        </button>
+                    );
+                })}
             </div>
             <div id="pokemon-list-wrapper">
                 <div className="general grass">
@@ -28,17 +35,3 @@ export default function PokedexSite() {
         </div>
     );
 }
-
-// function Avatar({ person, size }: AvatarProps) {
-//     return (
-//         <img
-//             className="avatar"
-//             src={
-//                 "https://profile-images.xing.com/images/69f8e0b08c631937469942a9f88c7ce6-1/marvin-demirkaya.1024x1024.jpg"
-//             }
-//             alt={person.name}
-//             width={size}
-//             height={size}
-//         />
-//     );
-// }
