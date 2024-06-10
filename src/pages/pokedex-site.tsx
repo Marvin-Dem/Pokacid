@@ -10,7 +10,10 @@ export default function PokedexSite() {
             <div className="button-wrapper">
                 {buttonTypes.map((item) => {
                     return (
-                        <button className={`button ${item} filter-button `}>
+                        <button
+                            key={item}
+                            className={`button ${item} filter-button `}
+                        >
                             {item}
                         </button>
                     );
