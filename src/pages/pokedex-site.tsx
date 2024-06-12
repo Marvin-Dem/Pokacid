@@ -14,7 +14,7 @@ export default function PokedexSite() {
     }, []);
 
     return (
-        <div>
+        <>
             <div className="header">
                 Show Pokemon with the following type:
                 <button className="button reset">Reset Filter</button>
@@ -33,11 +33,9 @@ export default function PokedexSite() {
             </div>
             <div id="pokemon-card-wrapper">
                 {allPokemon.map((pokemon) => {
-                    return (
-                        <div key={pokemon.name}>{PokemonCard({ pokemon })}</div>
-                    );
+                    return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
                 })}
             </div>
-        </div>
+        </>
     );
 }
