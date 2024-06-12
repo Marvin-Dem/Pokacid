@@ -20,13 +20,13 @@ export default function PokedexSite() {
                 <button className="button reset">Reset Filter</button>
             </div>
             <div className="button-wrapper">
-                {buttonTypes.map((item) => {
+                {buttonTypes.map((buttonType) => {
                     return (
                         <button
-                            key={item}
-                            className={`button ${item} filter-button `}
+                            key={buttonType}
+                            className={`button ${buttonType} filter-button `}
                         >
-                            {item}
+                            {buttonType}
                         </button>
                     );
                 })}
