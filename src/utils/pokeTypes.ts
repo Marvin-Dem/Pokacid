@@ -43,14 +43,14 @@ export const buttonTypes: Type[] = [
 
 export default function getPokemonByType(type: Type, pokeList: Pokemon[]) {
     const filteredPokeList = pokeList.filter((pokemon) => {
-        const filterPokeTypes = pokemon.types.filter((pokeType) => {
+        const filteredPokeTypes = pokemon.types.filter((pokeType) => {
             if (pokeType.type.name === type) {
                 return true;
             } else {
                 return false;
             }
         });
-        if (filterPokeTypes.length === 0) {
+        if (filteredPokeTypes.length === 0) {
             return false;
         } else {
             return true;
