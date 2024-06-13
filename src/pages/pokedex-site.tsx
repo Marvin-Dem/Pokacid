@@ -1,11 +1,19 @@
 import PokemonCard from "~/components/pokemonCard";
-import { buttonTypes } from "~/utils/pokeTypes";
+import getPokemonByType, { Type, buttonTypes } from "~/utils/pokeTypes";
 import { getAllPokemon } from "~/utils/pokeAPI";
 import { useEffect, useState } from "react";
 import { Pokemon } from "pokenode-ts";
 
 export default function PokedexSite() {
     const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
+    const [pokemonType, setPokemonType] = useState<Type>();
+
+    let filteredList: Pokemon[];
+    if (pokemonType === undefined) {
+        filteredList = allPokemon;
+    } else {
+        filteredList = getPokemonByType(pokemonType, allPokemon);
+    }
 
     useEffect(() => {
         getAllPokemon().then((allPokemon) => {
@@ -17,7 +25,15 @@ export default function PokedexSite() {
         <>
             <div className="header">
                 Show Pokemon with the following type:
-                <button className="button reset">Reset Filter</button>
+                <button
+                    key="buttonReset"
+                    className="button reset"
+                    onClick={() => {
+                        setPokemonType(undefined);
+                    }}
+                >
+                    Reset Filter
+                </button>
             </div>
             <div className="button-wrapper">
                 {buttonTypes.map((buttonType) => {
@@ -25,6 +41,9 @@ export default function PokedexSite() {
                         <button
                             key={buttonType}
                             className={`button ${buttonType} filter-button `}
+                            onClick={() => {
+                                setPokemonType(buttonType);
+                            }}
                         >
                             {buttonType}
                         </button>
@@ -32,7 +51,7 @@ export default function PokedexSite() {
                 })}
             </div>
             <div id="pokemon-card-wrapper">
-                {allPokemon.map((pokemon) => {
+                {filteredList.map((pokemon) => {
                     return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
                 })}
             </div>

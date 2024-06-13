@@ -1,4 +1,6 @@
-type Type =
+import { Pokemon } from "pokenode-ts";
+
+export type Type =
     | "water"
     | "fire"
     | "grass"
@@ -38,3 +40,21 @@ export const buttonTypes: Type[] = [
     "dark",
     "fairy",
 ];
+
+export default function getPokemonByType(type: Type, pokeList: Pokemon[]) {
+    const filteredPokeList = pokeList.filter((pokemon) => {
+        const filterPokeTypes = pokemon.types.filter((pokeType) => {
+            if (pokeType.type.name === type) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+        if (filterPokeTypes.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+    return filteredPokeList;
+}
