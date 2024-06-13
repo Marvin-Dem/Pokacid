@@ -26,7 +26,6 @@ export default function PokedexSite() {
             <div className="header">
                 Show Pokemon with the following type:
                 <button
-                    key="buttonReset"
                     className="button reset"
                     onClick={() => {
                         setPokemonType(undefined);
