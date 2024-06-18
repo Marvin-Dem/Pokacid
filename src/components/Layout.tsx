@@ -5,18 +5,16 @@ type LayoutProps = {
 };
 export default function Layout({ children }: LayoutProps) {
     return (
-        <div>
+        <>
             <header className="pokacid">Pokacid</header>
             <aside>
-                <nav>
-                    <div className="navbar">
-                        <Link href="/">Go to Homepage</Link>
-                        <Link href="/pokedex-site">Watch your Pokedex</Link>
-                    </div>
+                <nav className="navbar">
+                    <Link href="/">Go to Homepage</Link>
+                    <Link href="/pokedex-site">Watch your Pokedex</Link>
                 </nav>
             </aside>
             <main>{children}</main>
             <footer className="footer">About me</footer>
-        </div>
+        </>
     );
 }
