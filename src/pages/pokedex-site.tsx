@@ -3,6 +3,7 @@ import getPokemonByType, { Type, buttonTypes } from "~/utils/pokeTypes";
 import { getAllPokemon } from "~/utils/pokeAPI";
 import { useEffect, useState } from "react";
 import { Pokemon } from "pokenode-ts";
+import Layout from "~/components/Layout";
 
 export default function PokedexSite() {
     const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
@@ -22,7 +23,7 @@ export default function PokedexSite() {
     }, []);
 
     return (
-        <>
+        <Layout>
             <div className="header">
                 Show Pokemon with the following type:
                 <button
@@ -54,6 +55,6 @@ export default function PokedexSite() {
                     return <PokemonCard key={pokemon.name} pokemon={pokemon} />;
                 })}
             </div>
-        </>
+        </Layout>
     );
 }

@@ -143,3 +143,29 @@
 .background {
     background-color: burlywood;
 }
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.pokacid {
+    font-size: 35px;
+    padding: 30px;
+    font-family: "Times New Roman";
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    border-bottom: solid black 3px;
+}
+
+.footer {
+    font-size: 20px;
+    padding: 30px;
+    font-family: "Times New Roman";
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    border: solid black 3px;
+}
