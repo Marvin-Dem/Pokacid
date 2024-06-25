@@ -18,6 +18,10 @@ export default function Layout({ children }: LayoutProps) {
                 <button className="themebutton">Light/Dark</button>
             </header>
             <div className="bodywrapper">
+                <div className="body">
+                    <main className="main">{children}</main>
+                    <footer className="footer">About me</footer>
+                </div>
                 {isOpen && (
                     <aside
                         onMouseEnter={() => setIsOpen(true)}
@@ -30,10 +34,6 @@ export default function Layout({ children }: LayoutProps) {
                         </nav>
                     </aside>
                 )}
-                <div className="body">
-                    <main className="main">{children}</main>
-                    <footer className="footer">About me</footer>
-                </div>
             </div>
         </div>
     );

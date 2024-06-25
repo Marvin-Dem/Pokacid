@@ -156,6 +156,22 @@ body {
     padding: 5px;
     border-right: 3px solid black;
     width: 200px;
+    margin-right: -200px;
+    animation-name: sidebaropening;
+    animation-duration: 1.5s;
+    animation-delay: -0.1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sidebaropening {
+    from {
+        margin-left: -200px;
+        margin-right: 0;
+    }
+    to {
+        margin-left: 0;
+        margin-right: -200px;
+    }
 }
 
 .pokacid {
@@ -200,6 +216,7 @@ body {
 .bodywrapper {
     display: flex;
     height: calc(100vh - 100px);
+    flex-direction: row-reverse;
 }
 
 .footer-pos {
@@ -225,9 +242,33 @@ body {
 }
 
 .pokeball:hover {
-    background: url(/pixelpokeball.png) -148px 0;
+    /* background: url(/pixelpokeball.png) -148px 0; */
+    animation-name: pokeballopening;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
 
 .themebutton {
     margin: 10px;
+}
+
+@keyframes pokeballopening {
+    0% {
+        background: url(/pixelpokeball.png) 0 0;
+    }
+    20% {
+        background: url(/pixelpokeball.png) 0 0;
+    }
+    20.001% {
+        background: url(/pixelpokeball.png) -73px 0;
+    }
+    60% {
+        background: url(/pixelpokeball.png) -73px 0;
+    }
+    60.001% {
+        background: url(/pixelpokeball.png) -148px 0;
+    }
+    100% {
+        background: url(/pixelpokeball.png) -148px 0;
+    }
 }
