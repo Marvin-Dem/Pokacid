@@ -242,10 +242,10 @@ body {
 }
 
 .pokeball:hover {
-    /* background: url(/pixelpokeball.png) -148px 0; */
     animation-name: pokeballopening;
-    animation-duration: 1s;
+    animation-duration: 0.6s;
     animation-fill-mode: forwards;
+    animation-delay: 0.2s;
 }
 
 .themebutton {
@@ -254,21 +254,12 @@ body {
 
 @keyframes pokeballopening {
     0% {
-        background: url(/pixelpokeball.png) 0 0;
+        background-position: -73px 0;
     }
-    20% {
-        background: url(/pixelpokeball.png) 0 0;
-    }
-    20.001% {
-        background: url(/pixelpokeball.png) -73px 0;
-    }
-    60% {
-        background: url(/pixelpokeball.png) -73px 0;
-    }
-    60.001% {
-        background: url(/pixelpokeball.png) -148px 0;
+    99.999% {
+        background-position: -73px 0;
     }
     100% {
-        background: url(/pixelpokeball.png) -148px 0;
+        background-position: -148px 0;
     }
 }
