@@ -1,3 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
 .general {
     border: 3px solid black;
     border-radius: 30px;
@@ -115,12 +123,10 @@
 }
 
 .header {
-    font-size: 35px;
-    padding: 30px;
-    font-family: "Times New Roman";
-    font-weight: bold;
     display: flex;
-    gap: 100px;
+    justify-content: space-between;
+    box-shadow: 0px 5px black;
+    height: 100px;
 }
 
 .button-wrapper {
@@ -144,20 +150,41 @@
     background-color: burlywood;
 }
 
-.navbar {
+.sidebar {
     display: flex;
     flex-direction: column;
     padding: 5px;
+    border-right: 3px solid black;
+    width: 200px;
+    margin-right: -200px;
+    animation-name: sidebaropening;
+    animation-duration: 1.5s;
+    animation-delay: -0.1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes sidebaropening {
+    from {
+        margin-left: -200px;
+        margin-right: 0;
+    }
+    to {
+        margin-left: 0;
+        margin-right: -200px;
+    }
 }
 
 .pokacid {
-    font-size: 35px;
-    padding: 30px;
+    font-size: 50px;
     font-family: "Times New Roman";
     font-weight: bold;
     display: flex;
-    justify-content: center;
-    border-bottom: solid black 3px;
+    align-items: center;
+    border: solid black 2px;
+    border-top: 0;
+    height: 50px;
+    padding: 30px;
+    border-radius: 25%;
 }
 
 .footer {
@@ -168,4 +195,71 @@
     display: flex;
     justify-content: center;
     border: solid black 3px;
+    border-bottom: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+}
+
+.bodywrapper {
+    display: flex;
+    height: calc(100vh - 100px);
+    flex-direction: row-reverse;
+}
+
+.footer-pos {
+    display: flex;
+    justify-content: center;
+}
+
+.body {
+    width: 100%;
+    height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.pokeball {
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    background: url(/pixelpokeball.png) 0 0;
+    aspect-ratio: 75 / 100;
+}
+
+.pokeball:hover {
+    animation-name: pokeballopening;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+    animation-delay: 0.2s;
+}
+
+.themebutton {
+    margin: 10px;
+}
+
+@keyframes pokeballopening {
+    0% {
+        background-position: -73px 0;
+    }
+    99.999% {
+        background-position: -73px 0;
+    }
+    100% {
+        background-position: -148px 0;
+    }
 }
