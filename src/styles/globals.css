@@ -216,8 +216,6 @@ body {
 }
 
 .main {
-    display: flex;
-    flex-direction: column;
     padding-left: var(--sidebarspace);
     width: 100%;
 }
