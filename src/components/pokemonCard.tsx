@@ -33,9 +33,9 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
                 <div className="poke-card-wrap-2">
                     {pokemon.types.map((type) => {
                         return (
-                            <p className="poke-type" key={type.type.name}>
+                            <span className="poke-type" key={type.type.name}>
                                 {type.type.name}
-                            </p>
+                            </span>
                         );
                     })}
                 </div>

@@ -1,3 +1,7 @@
+:root {
+    --sidebarspace: 200px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -12,16 +16,16 @@ body {
     width: 800px;
     display: flex;
     gap: 20px;
+    padding: 5px;
 }
 
 .poke-name {
     font-size: 50px;
     font-family: "Times New Roman";
     font-weight: bold;
-    width: 260px;
+    width: 12ch;
     display: flex;
     align-items: center;
-    padding-left: 10px;
 }
 
 .poke-type {
@@ -29,7 +33,6 @@ body {
     font-family: "Times New Roman";
     padding-left: 30px;
     padding-right: 30px;
-    margin: 0;
 }
 .poke-number {
     font-size: 30px;
@@ -104,6 +107,7 @@ body {
     border-radius: 15px;
     transition-duration: 0.4s;
     cursor: pointer;
+    margin-bottom: 30px;
 }
 .filter-button {
     height: 65px;
@@ -138,7 +142,6 @@ body {
     gap: 15px;
     padding: 5px;
     margin-bottom: 30px;
-    margin-top: 30px;
     width: 1000px;
 }
 .audio-button {
@@ -215,7 +218,7 @@ body {
 .main {
     display: flex;
     flex-direction: column;
-    padding-left: 200px;
+    padding-left: var(--sidebarspace);
     width: 100%;
 }
 

@@ -24,7 +24,7 @@ export default function PokedexSite() {
 
     return (
         <Layout>
-            <div className="dex-header">
+            <div>
                 <p className="dex-header-text">
                     Show Pokemon with the following type:
                 </p>
