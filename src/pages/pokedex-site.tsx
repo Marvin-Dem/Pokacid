@@ -24,8 +24,10 @@ export default function PokedexSite() {
 
     return (
         <Layout>
-            <div className="header">
-                Show Pokemon with the following type:
+            <div className="dex-header">
+                <p className="dex-header-text">
+                    Show Pokemon with the following type:
+                </p>
                 <button
                     className="button reset"
                     onClick={() => {

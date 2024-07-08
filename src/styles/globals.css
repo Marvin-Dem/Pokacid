@@ -10,31 +10,34 @@ body {
     border: 3px solid black;
     border-radius: 30px;
     width: 800px;
-    height: 100px;
     display: flex;
+    gap: 20px;
 }
 
 .poke-name {
     font-size: 50px;
     font-family: "Times New Roman";
     font-weight: bold;
-    padding: 30px;
-    flex: 1;
+    width: 260px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
 }
 
 .poke-type {
     font-size: 30px;
     font-family: "Times New Roman";
-    padding: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    margin: 0;
 }
 .poke-number {
     font-size: 30px;
     font-family: "Times New Roman";
-    padding: 30px;
     font-weight: bold;
     display: flex;
     align-self: flex-end;
-    justify-content: flex-end;
+    width: 4ch;
 }
 .water {
     background-color: dodgerblue;
@@ -135,6 +138,7 @@ body {
     gap: 15px;
     padding: 5px;
     margin-bottom: 30px;
+    margin-top: 30px;
     width: 1000px;
 }
 .audio-button {
@@ -210,7 +214,9 @@ body {
 
 .main {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    padding-left: 200px;
+    width: 100%;
 }
 
 .bodywrapper {
@@ -262,4 +268,27 @@ body {
     100% {
         background-position: -148px 0;
     }
+}
+
+.dex-header-text {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Times New Roman";
+}
+
+.inner-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    justify-content: space-between;
+}
+
+.poke-card-wrap-1 {
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+}
+
+.poke-card-wrap-2 {
+    display: flex;
 }
