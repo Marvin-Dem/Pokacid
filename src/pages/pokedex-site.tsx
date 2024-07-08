@@ -24,17 +24,17 @@ export default function PokedexSite() {
 
     return (
         <Layout>
-            <div className="header">
+            <p className="dex-header-text">
                 Show Pokemon with the following type:
-                <button
-                    className="button reset"
-                    onClick={() => {
-                        setPokemonType(undefined);
-                    }}
-                >
-                    Reset Filter
-                </button>
-            </div>
+            </p>
+            <button
+                className="button reset"
+                onClick={() => {
+                    setPokemonType(undefined);
+                }}
+            >
+                Reset Filter
+            </button>
             <div className="button-wrapper">
                 {buttonTypes.map((buttonType) => {
                     return (

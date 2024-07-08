@@ -1,3 +1,7 @@
+:root {
+    --sidebarspace: 200px;
+}
+
 * {
     box-sizing: border-box;
 }
@@ -10,31 +14,33 @@ body {
     border: 3px solid black;
     border-radius: 30px;
     width: 800px;
-    height: 100px;
     display: flex;
+    gap: 20px;
+    padding: 5px;
 }
 
 .poke-name {
     font-size: 50px;
     font-family: "Times New Roman";
     font-weight: bold;
-    padding: 30px;
-    flex: 1;
+    width: 12ch;
+    display: flex;
+    align-items: center;
 }
 
 .poke-type {
     font-size: 30px;
     font-family: "Times New Roman";
-    padding: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .poke-number {
     font-size: 30px;
     font-family: "Times New Roman";
-    padding: 30px;
     font-weight: bold;
     display: flex;
     align-self: flex-end;
-    justify-content: flex-end;
+    width: 4ch;
 }
 .water {
     background-color: dodgerblue;
@@ -101,6 +107,7 @@ body {
     border-radius: 15px;
     transition-duration: 0.4s;
     cursor: pointer;
+    margin-bottom: 30px;
 }
 .filter-button {
     height: 65px;
@@ -209,8 +216,8 @@ body {
 }
 
 .main {
-    display: flex;
-    justify-content: center;
+    padding-left: var(--sidebarspace);
+    width: 100%;
 }
 
 .bodywrapper {
@@ -262,4 +269,27 @@ body {
     100% {
         background-position: -148px 0;
     }
+}
+
+.dex-header-text {
+    font-size: 25px;
+    font-weight: bold;
+    font-family: "Times New Roman";
+}
+
+.inner-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    justify-content: space-between;
+}
+
+.poke-card-wrap-1 {
+    display: flex;
+    justify-content: flex-end;
+    gap: 40px;
+}
+
+.poke-card-wrap-2 {
+    display: flex;
 }
