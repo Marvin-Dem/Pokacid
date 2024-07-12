@@ -26,6 +26,8 @@ body {
     width: 12ch;
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: black;
 }
 
 .poke-type {

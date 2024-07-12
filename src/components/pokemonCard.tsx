@@ -9,8 +9,12 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
 
     return (
         <div className={`general ${pokemon.types[0]!.type.name}`}>
-            <div className="poke-name">{pokemon.name}</div>
-            <img src={pokemon.sprites.front_default!} />
+            <a className="poke-name" href={`/detailedpokemon/${pokemon.id}`}>
+                {pokemon.name}
+            </a>
+            <a href={`/detailedpokemon/${pokemon.id}`}>
+                <img src={pokemon.sprites.front_default!} />
+            </a>
             <div className="inner-card-wrapper">
                 <div className="poke-card-wrap-1">
                     <button
