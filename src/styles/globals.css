@@ -8,6 +8,7 @@
 
 body {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .general {
@@ -21,7 +22,7 @@ body {
 
 .poke-name {
     font-size: 50px;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
     font-weight: bold;
     width: 12ch;
     display: flex;
@@ -32,13 +33,13 @@ body {
 
 .poke-type {
     font-size: 30px;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
     padding-left: 30px;
     padding-right: 30px;
 }
 .poke-number {
     font-size: 30px;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
     font-weight: bold;
     display: flex;
     align-self: flex-end;
@@ -185,7 +186,7 @@ body {
 
 .pokacid {
     font-size: 50px;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -199,7 +200,7 @@ body {
 .footer {
     font-size: 20px;
     padding: 30px;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
     font-weight: bolder;
     display: flex;
     justify-content: center;
@@ -218,13 +219,14 @@ body {
 }
 
 .main {
+    padding: 20px;
     padding-left: var(--sidebarspace);
     width: 100%;
 }
 
 .bodywrapper {
     display: flex;
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
     flex-direction: row-reverse;
 }
 
@@ -235,7 +237,7 @@ body {
 
 .body {
     width: 100%;
-    height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -276,7 +278,7 @@ body {
 .dex-header-text {
     font-size: 25px;
     font-weight: bold;
-    font-family: "Times New Roman";
+    /* font-family: "Times New Roman"; */
 }
 
 .inner-card-wrapper {
@@ -294,4 +296,48 @@ body {
 
 .poke-card-wrap-2 {
     display: flex;
+}
+
+.poke-detail-name {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.poke-detail-sprite {
+    height: 250px;
+    width: 250px;
+    border: solid black;
+    border-radius: 5px;
+}
+
+.detail-container {
+    display: flex;
+    flex-flow: column;
+    margin-left: 10px;
+}
+
+.detail-left-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-body {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.name-number-wrapper {
+    display: flex;
+    align-content: center;
+    gap: 15px;
+}
+
+.detail-wrapper {
+    display: flex;
+}
+
+.poke-detail-number {
+    font-size: 30px;
+    /* font-family: "Times New Roman"; */
+    font-weight: bold;
 }
