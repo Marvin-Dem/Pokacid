@@ -22,7 +22,6 @@ body {
 
 .poke-name {
     font-size: 50px;
-    /* font-family: "Times New Roman"; */
     font-weight: bold;
     width: 12ch;
     display: flex;
@@ -33,13 +32,11 @@ body {
 
 .poke-type {
     font-size: 30px;
-    /* font-family: "Times New Roman"; */
     padding-left: 30px;
     padding-right: 30px;
 }
 .poke-number {
     font-size: 30px;
-    /* font-family: "Times New Roman"; */
     font-weight: bold;
     display: flex;
     align-self: flex-end;
@@ -186,7 +183,6 @@ body {
 
 .pokacid {
     font-size: 50px;
-    /* font-family: "Times New Roman"; */
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -200,7 +196,6 @@ body {
 .footer {
     font-size: 20px;
     padding: 30px;
-    /* font-family: "Times New Roman"; */
     font-weight: bolder;
     display: flex;
     justify-content: center;
@@ -278,7 +273,6 @@ body {
 .dex-header-text {
     font-size: 25px;
     font-weight: bold;
-    /* font-family: "Times New Roman"; */
 }
 
 .inner-card-wrapper {
@@ -338,6 +332,5 @@ body {
 
 .poke-detail-number {
     font-size: 30px;
-    /* font-family: "Times New Roman"; */
     font-weight: bold;
 }

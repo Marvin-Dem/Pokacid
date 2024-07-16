@@ -8,6 +8,7 @@ export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
     const router = useRouter();
+
     if (Array.isArray(router.query.id)) {
         throw "Error: router.query.id is a string array";
     }
@@ -40,6 +41,9 @@ export default function DetailedPokemon() {
             </Layout>
         );
     }
+    const japname = pokemonSpecies.names.find(
+        (pokename) => pokename.language.name === "ja-Hrkt"
+    );
 
     return (
         <Layout>
@@ -59,7 +63,9 @@ export default function DetailedPokemon() {
                             </span>
                         </div>
                         <div>
-                            <p className="poke-detail-name">{`jap: ${pokemonSpecies.names[0].name} `}</p>
+                            <p className="poke-detail-name">
+                                jap: {japname?.name || "-"}
+                            </p>
                         </div>
                     </div>
                 </div>
