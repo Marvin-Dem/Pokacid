@@ -1,6 +1,6 @@
 import { PokemonClient, type Pokemon } from "pokenode-ts";
 
-const api = new PokemonClient({
+export const api = new PokemonClient({
     cacheOptions: {
         // reset default request interceptor behaviour to avoid preflight requests
         requestInterceptor: {
