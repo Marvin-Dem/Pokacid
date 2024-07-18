@@ -321,6 +321,7 @@ body {
 .detail-left-container {
     display: flex;
     flex-direction: column;
+    gap: 15px;
 }
 
 .detail-body {
@@ -388,4 +389,34 @@ body {
     display: flex;
     flex-direction: column;
     padding: 15px;
+}
+
+.stat-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 3px solid black;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.base-stats-header {
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 3px solid black;
+}
+
+.base-stats-footer {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.stats {
+    font-size: 15px;
+}
+
+.stat-wrapper {
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 5px;
 }

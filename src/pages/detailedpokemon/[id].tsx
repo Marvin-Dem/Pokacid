@@ -47,6 +47,7 @@ export default function DetailedPokemon() {
         (pokename) => pokename.language.name === "ja-Hrkt"
     );
     const gen = pokemonSpecies.generation.name.split("-")[1];
+    // const totalStats = pokemon.stats.reduce(());
 
     return (
         <Layout>
@@ -56,6 +57,56 @@ export default function DetailedPokemon() {
                         className="poke-detail-sprite"
                         src={pokemon.sprites.front_default!}
                     />
+                    <div className="stat-container">
+                        <span className="base-stats-header">Base Stats:</span>
+                        <div className="stat-wrapper">
+                            <span className="stat">
+                                {pokemon.stats[0]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[0]?.base_stat || "-"}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[1]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[1]?.base_stat || "-"}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[2]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[2]?.base_stat || "-"}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[3]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[3]?.base_stat || "-"}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[4]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[4]?.base_stat || "-"}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[5]?.stat.name.toUpperCase() ||
+                                    undefined}
+                            </span>
+                            <span className="stat">
+                                {pokemon.stats[5]?.base_stat || "-"}
+                            </span>
+                        </div>
+                        <span className="base-stats-footer">
+                            Total Base Stat:
+                        </span>
+                    </div>
                 </div>
                 <div className="detail-body">
                     <div className="detail-upper-container">
