@@ -297,6 +297,12 @@ body {
     font-weight: bold;
 }
 
+.poke-detail-japname {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
 .poke-detail-sprite {
     height: 250px;
     width: 250px;
@@ -304,10 +310,12 @@ body {
     border-radius: 5px;
 }
 
-.detail-container {
+.detail-upper-container {
     display: flex;
-    flex-flow: column;
-    margin-left: 10px;
+    border: 3px solid black;
+    border-radius: 10px;
+    gap: 30px;
+    padding: 15px;
 }
 
 .detail-left-container {
@@ -317,20 +325,67 @@ body {
 
 .detail-body {
     display: flex;
-    flex-wrap: wrap;
+    width: 100%;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .name-number-wrapper {
     display: flex;
-    align-content: center;
+    gap: 15px;
+    flex-direction: column;
+}
+
+.name-number-inner {
+    display: flex;
     gap: 15px;
 }
 
 .detail-wrapper {
     display: flex;
+    gap: 15px;
 }
 
 .poke-detail-number {
     font-size: 30px;
     font-weight: bold;
+}
+
+.poke-detail-type {
+    font-size: 30px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 3px;
+}
+
+.type-wrapper {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.habitat-gen-wrapper {
+    display: flex;
+    font-size: 30px;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.gen {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.habitat {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.button-chain-container {
+    border: 3px solid black;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
 }
