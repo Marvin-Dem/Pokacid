@@ -46,7 +46,7 @@ export default function DetailedPokemon() {
     const japname = pokemonSpecies.names.find(
         (pokename) => pokename.language.name === "ja-Hrkt"
     );
-    const gen = pokemonSpecies.generation.name.split("-");
+    const gen = pokemonSpecies.generation.name.split("-")[1];
 
     return (
         <Layout>
@@ -78,7 +78,7 @@ export default function DetailedPokemon() {
                             </span>
                             <span className="gen">
                                 existing since: Generation{" "}
-                                {gen[1].toUpperCase()}
+                                {gen?.toUpperCase() || "-"}
                             </span>
                         </div>
                         <div className="type-wrapper">

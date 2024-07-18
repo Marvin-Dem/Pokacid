@@ -312,7 +312,6 @@ body {
 
 .detail-upper-container {
     display: flex;
-    justify-content: space-between;
     border: 3px solid black;
     border-radius: 10px;
     gap: 30px;
