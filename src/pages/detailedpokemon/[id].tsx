@@ -1,7 +1,7 @@
 import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
 import { api } from "~/utils/pokeAPI";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Pokemon, PokemonSpecies } from "pokenode-ts";
 import { useRef } from "react";
 
@@ -47,7 +47,10 @@ export default function DetailedPokemon() {
         (pokename) => pokename.language.name === "ja-Hrkt"
     );
     const gen = pokemonSpecies.generation.name.split("-")[1];
-    // const totalStats = pokemon.stats.reduce(());
+
+    const totalStats = pokemon.stats.reduce((total, current) => {
+        return total + current.base_stat;
+    }, 0);
 
     return (
         <Layout>
@@ -60,51 +63,22 @@ export default function DetailedPokemon() {
                     <div className="stat-container">
                         <span className="base-stats-header">Base Stats:</span>
                         <div className="stat-wrapper">
-                            <span className="stat">
-                                {pokemon.stats[0]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[0]?.base_stat || "-"}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[1]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[1]?.base_stat || "-"}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[2]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[2]?.base_stat || "-"}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[3]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[3]?.base_stat || "-"}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[4]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[4]?.base_stat || "-"}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[5]?.stat.name.toUpperCase() ||
-                                    undefined}
-                            </span>
-                            <span className="stat">
-                                {pokemon.stats[5]?.base_stat || "-"}
-                            </span>
+                            {pokemon.stats.map((stat) => {
+                                return (
+                                    <Fragment key={stat.stat.name}>
+                                        <span className="stat">
+                                            {stat.stat.name.toUpperCase() ||
+                                                undefined}
+                                        </span>
+                                        <span className="stat">
+                                            {stat.base_stat || "-"}
+                                        </span>
+                                    </Fragment>
+                                );
+                            })}
                         </div>
                         <span className="base-stats-footer">
-                            Total Base Stat:
+                            Total Base Stat: {totalStats}
                         </span>
                     </div>
                 </div>
