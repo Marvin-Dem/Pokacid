@@ -1,9 +1,17 @@
 import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
 import { api } from "~/utils/pokeAPI";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Pokemon, PokemonSpecies } from "pokenode-ts";
 import { useRef } from "react";
+
+const statMap = new Map();
+statMap.set("hp", "HP");
+statMap.set("attack", "ATK");
+statMap.set("defense", "DEF");
+statMap.set("special-attack", "SP.ATK");
+statMap.set("special-defense", "SP.DEF");
+statMap.set("speed", "SPEED");
 
 export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
@@ -48,6 +56,10 @@ export default function DetailedPokemon() {
     );
     const gen = pokemonSpecies.generation.name.split("-")[1];
 
+    const totalStats = pokemon.stats.reduce((total, current) => {
+        return total + current.base_stat;
+    }, 0);
+
     return (
         <Layout>
             <div className="detail-wrapper">
@@ -56,6 +68,26 @@ export default function DetailedPokemon() {
                         className="poke-detail-sprite"
                         src={pokemon.sprites.front_default!}
                     />
+                    <div className="stat-container">
+                        <span className="base-stats-header">Base Stats:</span>
+                        <div className="stat-wrapper">
+                            {pokemon.stats.map((stat) => {
+                                return (
+                                    <Fragment key={stat.stat.name}>
+                                        <span className="stat">
+                                            {statMap.get(stat.stat.name)}
+                                        </span>
+                                        <span className="stat">
+                                            {stat.base_stat || "-"}
+                                        </span>
+                                    </Fragment>
+                                );
+                            })}
+                        </div>
+                        <span className="base-stats-footer">
+                            Total Base Stat: {totalStats}
+                        </span>
+                    </div>
                 </div>
                 <div className="detail-body">
                     <div className="detail-upper-container">
