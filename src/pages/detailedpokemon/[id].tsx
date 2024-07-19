@@ -5,6 +5,14 @@ import { Fragment, useEffect, useState } from "react";
 import { Pokemon, PokemonSpecies } from "pokenode-ts";
 import { useRef } from "react";
 
+const statMap = new Map();
+statMap.set("hp", "HP");
+statMap.set("attack", "ATK");
+statMap.set("defense", "DEF");
+statMap.set("special-attack", "SP.ATK");
+statMap.set("special-defense", "SP.DEF");
+statMap.set("speed", "SPEED");
+
 export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
@@ -67,8 +75,8 @@ export default function DetailedPokemon() {
                                 return (
                                     <Fragment key={stat.stat.name}>
                                         <span className="stat">
-                                            {stat.stat.name.toUpperCase() ||
-                                                undefined}
+                                            {statMap.get(stat.stat.name)}
+                                            {console.log(stat.stat.name)}
                                         </span>
                                         <span className="stat">
                                             {stat.base_stat || "-"}
