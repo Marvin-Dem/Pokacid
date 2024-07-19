@@ -76,7 +76,6 @@ export default function DetailedPokemon() {
                                     <Fragment key={stat.stat.name}>
                                         <span className="stat">
                                             {statMap.get(stat.stat.name)}
-                                            {console.log(stat.stat.name)}
                                         </span>
                                         <span className="stat">
                                             {stat.base_stat || "-"}
