@@ -4,6 +4,7 @@ import { api } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
 import { Pokemon, PokemonSpecies } from "pokenode-ts";
 import { useRef } from "react";
+import Image from "next/image";
 
 const statMap = new Map();
 statMap.set("hp", "HP");
@@ -64,7 +65,10 @@ export default function DetailedPokemon() {
         <Layout>
             <div className="detail-wrapper">
                 <div className="detail-left-container">
-                    <img
+                    <Image
+                        alt="Pokemon sprite"
+                        width="250"
+                        height="250"
                         className="poke-detail-sprite"
                         src={pokemon.sprites.front_default!}
                     />
