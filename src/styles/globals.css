@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
     --sidebarspace: 200px;
 }
@@ -305,9 +309,9 @@ body {
 
 .poke-detail-sprite {
     height: 250px;
-    width: 250px;
+    min-width: 250px;
     border: solid black;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .detail-upper-container {
