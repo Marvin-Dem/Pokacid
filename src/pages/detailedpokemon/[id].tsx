@@ -121,7 +121,7 @@ export default function DetailedPokemon() {
                                     }
                                 );
                                 if (pokeAbility === undefined) {
-                                    return "";
+                                    return null;
                                 }
                                 const engAbilityName = pokeAbility.names.find(
                                     (abilityName) => {
@@ -131,7 +131,7 @@ export default function DetailedPokemon() {
                                     }
                                 );
                                 if (engAbilityName === undefined) {
-                                    return "";
+                                    return null;
                                 }
                                 if (pokemonAbility.is_hidden === false) {
                                     return (
