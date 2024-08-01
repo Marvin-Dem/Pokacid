@@ -32,15 +32,14 @@ export default function DetailedPokemon() {
         api.getPokemonById(id)
             .then((pokemon) => {
                 setPokemon(pokemon);
-                const promises: Promise<Ability>[] = [];
-                pokemon.abilities.map((pokemonAbility) => {
+                const promises = pokemon.abilities.map((pokemonAbility) => {
                     const promise = api.getAbilityByName(
                         pokemonAbility.ability.name
                     );
-                    promises.push(promise);
+                    return promise;
                 });
-                Promise.all(promises).then((array) => {
-                    setAbilities(array);
+                Promise.all(promises).then((abilities) => {
+                    setAbilities(abilities);
                 });
             })
             .catch((reason) => {
@@ -121,29 +120,35 @@ export default function DetailedPokemon() {
                                         );
                                     }
                                 );
-                                const engAbility = pokeAbility?.names.find(
+                                if (pokeAbility === undefined) {
+                                    return "";
+                                }
+                                const engAbilityName = pokeAbility.names.find(
                                     (abilityName) => {
                                         return (
                                             abilityName.language.name === "en"
                                         );
                                     }
                                 );
+                                if (engAbilityName === undefined) {
+                                    return "";
+                                }
                                 if (pokemonAbility.is_hidden === false) {
                                     return (
-                                        <span key={pokeAbility?.name}>
-                                            {engAbility?.name}
+                                        <span key={pokeAbility.name}>
+                                            {engAbilityName.name}
                                         </span>
                                     );
                                 } else {
                                     return (
                                         <div
                                             className="flex flex-col"
-                                            key={pokeAbility?.name}
+                                            key={pokeAbility.name}
                                         >
                                             <span className="text-xl font-bold">
                                                 Hidden Ability:
                                             </span>
-                                            <span>{engAbility?.name}</span>
+                                            <span>{engAbilityName.name}</span>
                                         </div>
                                     );
                                 }
