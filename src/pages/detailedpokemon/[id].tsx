@@ -2,7 +2,7 @@ import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
 import { api } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
-import { Pokemon, PokemonSpecies } from "pokenode-ts";
+import { Pokemon, PokemonSpecies, Ability } from "pokenode-ts";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -17,9 +17,9 @@ statMap.set("speed", "SPEED");
 export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
+    const [abilities, setAbilities] = useState<Ability[]>();
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
-
     if (Array.isArray(router.query.id)) {
         throw "Error: router.query.id is a string array";
     }
@@ -32,6 +32,15 @@ export default function DetailedPokemon() {
         api.getPokemonById(id)
             .then((pokemon) => {
                 setPokemon(pokemon);
+                const promises = pokemon.abilities.map((pokemonAbility) => {
+                    const promise = api.getAbilityByName(
+                        pokemonAbility.ability.name
+                    );
+                    return promise;
+                });
+                Promise.all(promises).then((abilities) => {
+                    setAbilities(abilities);
+                });
             })
             .catch((reason) => {
                 console.log(reason);
@@ -44,8 +53,11 @@ export default function DetailedPokemon() {
                 console.log(reason);
             });
     }, [id]);
-
-    if (pokemon === undefined || pokemonSpecies === undefined) {
+    if (
+        pokemon === undefined ||
+        pokemonSpecies === undefined ||
+        abilities === undefined
+    ) {
         return (
             <Layout>
                 <p>Loading...</p>
@@ -72,8 +84,11 @@ export default function DetailedPokemon() {
                         className="poke-detail-sprite"
                         src={pokemon.sprites.front_default!}
                     />
-                    <div className="stat-container">
-                        <span className="base-stats-header">Base Stats:</span>
+                    {/* Base Stat Container */}
+                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4">
+                        <span className="text-xl border-b-4 font-bold border-black">
+                            Base Stats:
+                        </span>
                         <div className="stat-wrapper">
                             {pokemon.stats.map((stat) => {
                                 return (
@@ -92,8 +107,57 @@ export default function DetailedPokemon() {
                             Total Base Stat: {totalStats}
                         </span>
                     </div>
+                    {/* Ability Container */}
+                    <div className="flex flex-col border-2 border-black rounded-lg p-4">
+                        <span className="text-xl font-bold">Abilities:</span>
+                        <div className="flex flex-col">
+                            {pokemon.abilities.map((pokemonAbility) => {
+                                const pokeAbility = abilities.find(
+                                    (ability) => {
+                                        return (
+                                            pokemonAbility.ability.name ===
+                                            ability.name
+                                        );
+                                    }
+                                );
+                                if (pokeAbility === undefined) {
+                                    return null;
+                                }
+                                const engAbilityName = pokeAbility.names.find(
+                                    (abilityName) => {
+                                        return (
+                                            abilityName.language.name === "en"
+                                        );
+                                    }
+                                );
+                                if (engAbilityName === undefined) {
+                                    return null;
+                                }
+                                if (pokemonAbility.is_hidden === false) {
+                                    return (
+                                        <span key={pokeAbility.name}>
+                                            {engAbilityName.name}
+                                        </span>
+                                    );
+                                } else {
+                                    return (
+                                        <div
+                                            className="flex flex-col"
+                                            key={pokeAbility.name}
+                                        >
+                                            <span className="text-xl font-bold">
+                                                Hidden Ability:
+                                            </span>
+                                            <span>{engAbilityName.name}</span>
+                                        </div>
+                                    );
+                                }
+                            })}
+                        </div>
+                    </div>
                 </div>
                 <div className="detail-body">
+                    {/* Upper Detail Container */}
                     <div className="detail-upper-container">
                         <div className="name-number-wrapper">
                             <div className="name-number-inner">
@@ -130,6 +194,7 @@ export default function DetailedPokemon() {
                             })}
                         </div>
                     </div>
+                    {/* audiobutton-chain-container */}
                     <div className="button-chain-container">
                         <button
                             className="audio-button"
