@@ -1,4 +1,4 @@
-import { PokemonClient, type Pokemon } from "pokenode-ts";
+import { EvolutionClient, PokemonClient, type Pokemon } from "pokenode-ts";
 
 export const api = new PokemonClient({
     cacheOptions: {
@@ -10,6 +10,18 @@ export const api = new PokemonClient({
         },
     },
 });
+
+export const evolutionApi = new EvolutionClient({
+    cacheOptions: {
+        // reset default request interceptor behaviour to avoid preflight requests
+        requestInterceptor: {
+            apply: () => null,
+            onFulfilled: (config) => config,
+            onRejected: (error) => error,
+        },
+    },
+})
+
 export async function getAllPokemon() {
     const promises: Promise<Pokemon>[] = [];
     for (let pokeIndex = 1; pokeIndex <= 151; pokeIndex++) {

@@ -1,8 +1,8 @@
 import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
-import { api } from "~/utils/pokeAPI";
+import { api, evolutionApi } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
-import { Pokemon, PokemonSpecies, Ability } from "pokenode-ts";
+import { Pokemon, PokemonSpecies, Ability, EvolutionChain } from "pokenode-ts";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -18,6 +18,7 @@ export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
     const [abilities, setAbilities] = useState<Ability[]>();
+    const [evolutionChain, setEvolutionChain] = useState<EvolutionChain>();
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
     if (Array.isArray(router.query.id)) {
@@ -48,6 +49,17 @@ export default function DetailedPokemon() {
         api.getPokemonSpeciesById(id)
             .then((pokemonSpecies) => {
                 setPokemonSpecies(pokemonSpecies);
+                const url = pokemonSpecies.evolution_chain.url;
+                const parts = url.split("/");
+                const evolutionId = Number(parts[parts.length - 2]);
+                evolutionApi
+                    .getEvolutionChainById(evolutionId)
+                    .then((evolutionChain) => {
+                        setEvolutionChain(evolutionChain);
+                    })
+                    .catch((reason) => {
+                        console.log(reason);
+                    });
             })
             .catch((reason) => {
                 console.log(reason);
@@ -56,7 +68,8 @@ export default function DetailedPokemon() {
     if (
         pokemon === undefined ||
         pokemonSpecies === undefined ||
-        abilities === undefined
+        abilities === undefined ||
+        evolutionChain === undefined
     ) {
         return (
             <Layout>
@@ -202,15 +215,55 @@ export default function DetailedPokemon() {
                                 audioRef.current?.play();
                             }}
                         >
-                            <img
-                                src="https://cdn-icons-png.flaticon.com/512/4028/4028535.png"
+                            <Image
+                                src={"/PlayButton.png"}
                                 className="audio-button"
+                                alt="Audio Button Cry"
+                                width={512}
+                                height={512}
                             />
                             <audio
                                 ref={audioRef}
                                 src={pokemon.cries.legacy}
                             ></audio>
                         </button>
+                        <div>
+                            <div>{evolutionChain.chain.species.name}</div>
+                            <div>
+                                {evolutionChain.chain.evolves_to.map(
+                                    (speciesName) => {
+                                        return (
+                                            <div key={speciesName.species.name}>
+                                                <div>
+                                                    {speciesName.species.name}
+                                                </div>
+                                                <div>
+                                                    {speciesName.evolves_to.map(
+                                                        (evoSpeciesName) => {
+                                                            return (
+                                                                <div
+                                                                    key={
+                                                                        evoSpeciesName
+                                                                            .species
+                                                                            .name
+                                                                    }
+                                                                >
+                                                                    {
+                                                                        evoSpeciesName
+                                                                            .species
+                                                                            .name
+                                                                    }
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )}
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
