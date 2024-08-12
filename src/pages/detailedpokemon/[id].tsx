@@ -2,7 +2,13 @@ import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
 import { api, evolutionApi } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
-import { Pokemon, PokemonSpecies, Ability, EvolutionChain } from "pokenode-ts";
+import {
+    Pokemon,
+    PokemonSpecies,
+    Ability,
+    EvolutionChain,
+    ChainLink,
+} from "pokenode-ts";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -231,34 +237,12 @@ export default function DetailedPokemon() {
                             <div>{evolutionChain.chain.species.name}</div>
                             <div>
                                 {evolutionChain.chain.evolves_to.map(
-                                    (speciesName) => {
+                                    (chainLink) => {
                                         return (
-                                            <div key={speciesName.species.name}>
-                                                <div>
-                                                    {speciesName.species.name}
-                                                </div>
-                                                <div>
-                                                    {speciesName.evolves_to.map(
-                                                        (evoSpeciesName) => {
-                                                            return (
-                                                                <div
-                                                                    key={
-                                                                        evoSpeciesName
-                                                                            .species
-                                                                            .name
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        evoSpeciesName
-                                                                            .species
-                                                                            .name
-                                                                    }
-                                                                </div>
-                                                            );
-                                                        }
-                                                    )}
-                                                </div>
-                                            </div>
+                                            <EvolvesTo
+                                                key={chainLink.species.name}
+                                                chainLink={chainLink}
+                                            />
                                         );
                                     }
                                 )}
@@ -268,5 +252,41 @@ export default function DetailedPokemon() {
                 </div>
             </div>
         </Layout>
+    );
+}
+
+type EvolvesToProps = {
+    chainLink: ChainLink;
+};
+
+function EvolvesTo({ chainLink }: EvolvesToProps) {
+    return (
+        <div key={chainLink.species.name}>
+            <div>
+                {chainLink.evolution_details.map((evoCondition) => {
+                    console.log(evoCondition.trigger.name);
+                    if (evoCondition.trigger.name === "level-up") {
+                        return (
+                            <div key={evoCondition.trigger.name}>
+                                {`Level ${evoCondition.min_level}`}
+                            </div>
+                        );
+                    } else {
+                        return "Evolution Condition not found yet.";
+                    }
+                })}
+            </div>
+            <div>{chainLink.species.name}</div>
+            <div>
+                {chainLink.evolves_to.map((evoChainLink) => {
+                    return (
+                        <EvolvesTo
+                            key={evoChainLink.species.name}
+                            chainLink={evoChainLink}
+                        />
+                    );
+                })}
+            </div>
+        </div>
     );
 }
