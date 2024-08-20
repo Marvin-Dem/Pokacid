@@ -233,7 +233,7 @@ export default function DetailedPokemon() {
                                 src={pokemon.cries.legacy}
                             ></audio>
                         </button>
-                        <div className="grid grid-cols-3">
+                        <div className="grid grid-cols-3 gap-x-2 gap-y-1">
                             <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
                                 {evolutionChain.chain.species.name}
                             </div>
@@ -243,6 +243,7 @@ export default function DetailedPokemon() {
                                         <EvolvesTo
                                             key={chainLink.species.name}
                                             chainLink={chainLink}
+                                            evoStage={1}
                                         />
                                     );
                                 }
@@ -257,12 +258,22 @@ export default function DetailedPokemon() {
 
 type EvolvesToProps = {
     chainLink: ChainLink;
+    evoStage: number;
 };
 
-function EvolvesTo({ chainLink }: EvolvesToProps) {
+function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
+    let className;
+    if (evoStage < 1) {
+        console.error("Value of evoStage is <1");
+        return null;
+    } else if (evoStage === 1) {
+        className = "col-start-1";
+    } else if (evoStage === 2) {
+        className = "col-start-2";
+    }
     return (
         <>
-            <div className="col-start-1">
+            <div className={className}>
                 {(() => {
                     const evoCondition = chainLink.evolution_details[0];
 
@@ -308,7 +319,7 @@ function EvolvesTo({ chainLink }: EvolvesToProps) {
                     return "Evolution Condition not found yet.";
                 })()}
             </div>
-            <div className="border-2 border-black">
+            <div className="border-2 border-black rounded-lg">
                 {chainLink.species.name}
             </div>
             {chainLink.evolves_to.map((evoChainLink) => {
@@ -316,6 +327,7 @@ function EvolvesTo({ chainLink }: EvolvesToProps) {
                     <EvolvesTo
                         key={evoChainLink.species.name}
                         chainLink={evoChainLink}
+                        evoStage={evoStage + 1}
                     />
                 );
             })}
