@@ -233,20 +233,20 @@ export default function DetailedPokemon() {
                                 src={pokemon.cries.legacy}
                             ></audio>
                         </button>
-                        <div>
-                            <div>{evolutionChain.chain.species.name}</div>
-                            <div>
-                                {evolutionChain.chain.evolves_to.map(
-                                    (chainLink) => {
-                                        return (
-                                            <EvolvesTo
-                                                key={chainLink.species.name}
-                                                chainLink={chainLink}
-                                            />
-                                        );
-                                    }
-                                )}
+                        <div className="grid grid-cols-3">
+                            <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
+                                {evolutionChain.chain.species.name}
                             </div>
+                            {evolutionChain.chain.evolves_to.map(
+                                (chainLink) => {
+                                    return (
+                                        <EvolvesTo
+                                            key={chainLink.species.name}
+                                            chainLink={chainLink}
+                                        />
+                                    );
+                                }
+                            )}
                         </div>
                     </div>
                 </div>
@@ -261,32 +261,64 @@ type EvolvesToProps = {
 
 function EvolvesTo({ chainLink }: EvolvesToProps) {
     return (
-        <div key={chainLink.species.name}>
-            <div>
-                {chainLink.evolution_details.map((evoCondition) => {
-                    console.log(evoCondition.trigger.name);
-                    if (evoCondition.trigger.name === "level-up") {
-                        return (
-                            <div key={evoCondition.trigger.name}>
-                                {`Level ${evoCondition.min_level}`}
-                            </div>
-                        );
-                    } else {
-                        return "Evolution Condition not found yet.";
+        <>
+            <div className="col-start-1">
+                {(() => {
+                    const evoCondition = chainLink.evolution_details[0];
+
+                    if (evoCondition === undefined) {
+                        return;
                     }
-                })}
+                    if (
+                        evoCondition.trigger.name === "level-up" &&
+                        evoCondition.min_level !== null
+                    ) {
+                        return `Level ${evoCondition.min_level}`;
+                    }
+
+                    if (
+                        evoCondition.trigger.name === "trade" &&
+                        evoCondition.held_item !== null
+                    ) {
+                        return `Trade with ${evoCondition.held_item.name}`;
+                    }
+
+                    if (
+                        evoCondition.trigger.name === "trade" &&
+                        evoCondition.held_item === null
+                    ) {
+                        return "Trade";
+                    }
+
+                    if (evoCondition.trigger.name === "use-item") {
+                        return evoCondition.item?.name;
+                    }
+                    if (evoCondition.min_happiness !== null) {
+                        return `Friendship Level ${evoCondition.min_happiness}`;
+                    }
+                    if (evoCondition.location !== null) {
+                        return `Level up at ${evoCondition.location?.name}`;
+                    }
+                    if (
+                        evoCondition.min_affection !== null &&
+                        evoCondition.trigger.name === "level-up"
+                    ) {
+                        return `Level up at min affection ${evoCondition.min_affection}`;
+                    }
+                    return "Evolution Condition not found yet.";
+                })()}
             </div>
-            <div>{chainLink.species.name}</div>
-            <div>
-                {chainLink.evolves_to.map((evoChainLink) => {
-                    return (
-                        <EvolvesTo
-                            key={evoChainLink.species.name}
-                            chainLink={evoChainLink}
-                        />
-                    );
-                })}
+            <div className="border-2 border-black">
+                {chainLink.species.name}
             </div>
-        </div>
+            {chainLink.evolves_to.map((evoChainLink) => {
+                return (
+                    <EvolvesTo
+                        key={evoChainLink.species.name}
+                        chainLink={evoChainLink}
+                    />
+                );
+            })}
+        </>
     );
 }
