@@ -140,14 +140,6 @@ body {
     height: 100px;
 }
 
-.button-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 5px;
-    margin-bottom: 30px;
-    width: 1000px;
-}
 .audio-button {
     display: flex;
     border-radius: 100%;
@@ -272,11 +264,6 @@ body {
     100% {
         background-position: -148px 0;
     }
-}
-
-.dex-header-text {
-    font-size: 25px;
-    font-weight: bold;
 }
 
 .inner-card-wrapper {

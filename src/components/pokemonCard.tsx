@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import type { Pokemon } from "pokenode-ts";
 import { useRef } from "react";
 
@@ -12,9 +13,6 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
             <a className="poke-name" href={`/detailedpokemon/${pokemon.id}`}>
                 {pokemon.name}
             </a>
-            <a href={`/detailedpokemon/${pokemon.id}`}>
-                <img src={pokemon.sprites.front_default!} />
-            </a>
             <div className="inner-card-wrapper">
                 <div className="poke-card-wrap-1">
                     <button
@@ -26,6 +24,7 @@ export default function PokemonCard({ pokemon }: PokemonCardProps) {
                         <img
                             src="https://cdn-icons-png.flaticon.com/512/4028/4028535.png"
                             className="audio-button"
+                            alt="audio button"
                         />
                         <audio
                             ref={audioRef}
