@@ -10,6 +10,7 @@ export default function PokedexSite() {
     const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
     const [pokemonType, setPokemonType] = useState<Type>();
     const [spriteImage, setSpriteImage] = useState<PokemonSprites>();
+    const [showTypeBox, setShowTypeBox] = useState<boolean>(false);
 
     let filteredList: Pokemon[];
     if (pokemonType === undefined) {
@@ -28,7 +29,12 @@ export default function PokedexSite() {
         <Layout>
             <div className="grid grid-cols-3">
                 <div className="flex flex-col w-2/3">
-                    <button className="text-2xl font-bold button reset">
+                    <button
+                        className="text-2xl font-bold button reset"
+                        onClick={() => {
+                            setShowTypeBox(true);
+                        }}
+                    >
                         Show pokemon with the following type:
                     </button>
                     <button
@@ -40,20 +46,24 @@ export default function PokedexSite() {
                         Reset Filter
                     </button>
                 </div>
-                <div className="grid grid-cols-6 border-2 rounded-xl border-black p-2 gap-2 gap-x-2 w-fit col-span-2">
-                    {buttonTypes.map((buttonType) => {
-                        return (
-                            <button
-                                key={buttonType}
-                                className={`button ${buttonType} filter-button `}
-                                onClick={() => {
-                                    setPokemonType(buttonType);
-                                }}
-                            >
-                                {buttonType}
-                            </button>
-                        );
-                    })}
+                <div>
+                    {showTypeBox && (
+                        <div className="grid grid-cols-6 border-2 rounded-xl border-black p-2 gap-2 gap-x-2 w-fit col-span-2">
+                            {buttonTypes.map((buttonType) => {
+                                return (
+                                    <button
+                                        key={buttonType}
+                                        className={`button ${buttonType} filter-button `}
+                                        onClick={() => {
+                                            setPokemonType(buttonType);
+                                        }}
+                                    >
+                                        {buttonType}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
                 </div>
                 <div>
                     {spriteImage?.front_default !== undefined && (
