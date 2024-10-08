@@ -4,12 +4,22 @@ import { useRef } from "react";
 
 type PokemonCardProps = {
     pokemon: Pokemon;
+    onMouseEnter: () => void;
+    onMouseLeave: () => void;
 };
-export default function PokemonCard({ pokemon }: PokemonCardProps) {
+export default function PokemonCard({
+    pokemon,
+    onMouseEnter,
+    onMouseLeave,
+}: PokemonCardProps) {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     return (
-        <div className={`general ${pokemon.types[0]!.type.name}`}>
+        <div
+            className={`general ${pokemon.types[0]!.type.name}`}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
             <a className="poke-name" href={`/detailedpokemon/${pokemon.id}`}>
                 {pokemon.name}
             </a>

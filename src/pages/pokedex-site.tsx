@@ -66,7 +66,14 @@ export default function PokedexSite() {
                 <div id="pokemon-card-wrapper" className="col-span-2">
                     {filteredList.map((pokemon) => {
                         return (
-                            <PokemonCard key={pokemon.name} pokemon={pokemon} />
+                            <PokemonCard
+                                key={pokemon.name}
+                                pokemon={pokemon}
+                                onMouseEnter={() =>
+                                    setSpriteImage(pokemon.sprites)
+                                }
+                                onMouseLeave={() => setSpriteImage(undefined)}
+                            />
                         );
                     })}
                 </div>
@@ -75,6 +82,6 @@ export default function PokedexSite() {
     );
 }
 
-//hover effekt der Pokemon Card: Sprite des Pokemon soll gerendert werden.
 //type buttons sollen optional sein
 //Styling der einzelnen Pokemon Card anpassen.
+//Scrolling anpassen
