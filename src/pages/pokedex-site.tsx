@@ -30,7 +30,7 @@ export default function PokedexSite() {
             <div className="grid grid-cols-3">
                 <div className="flex flex-col w-2/3">
                     <button
-                        className="text-2xl font-bold button reset"
+                        className="text-3xl font-bold p-4 text-white border-none rounded-3xl cursor-pointer duration-300 bg-gray-500 textshadow"
                         onClick={() => {
                             setShowTypeBox(true);
                         }}
@@ -38,7 +38,7 @@ export default function PokedexSite() {
                         Show pokemon with the following type:
                     </button>
                     <button
-                        className="button reset"
+                        className="p-4 text-3xl text-white border-none rounded-3xl cursor-pointer duration-300 bg-gray-500 textshadow"
                         onClick={() => {
                             setPokemonType(undefined);
                         }}
@@ -48,12 +48,12 @@ export default function PokedexSite() {
                 </div>
                 <div>
                     {showTypeBox && (
-                        <div className="grid grid-cols-6 border-2 rounded-xl border-black p-2 gap-2 gap-x-2 w-fit col-span-2">
+                        <div className="grid grid-cols-6 border-2 rounded-xl border-black p-2 gap-2 gap-x-2 w-fit col-span-2 min-w-fit">
                             {buttonTypes.map((buttonType) => {
                                 return (
                                     <button
                                         key={buttonType}
-                                        className={`button ${buttonType} filter-button `}
+                                        className={`${buttonType} h-16 w-32`}
                                         onClick={() => {
                                             setPokemonType(buttonType);
                                         }}
@@ -93,5 +93,5 @@ export default function PokedexSite() {
 }
 
 //type buttons sollen optional sein
-//Styling der einzelnen Pokemon Card anpassen.
 //Scrolling anpassen
+//Dexlayout fixen
