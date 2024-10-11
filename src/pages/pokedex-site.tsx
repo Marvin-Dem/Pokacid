@@ -1,10 +1,50 @@
-/* eslint-disable @next/next/no-img-element */
 import PokemonCard from "~/components/pokemonCard";
 import getPokemonByType, { Type, buttonTypes } from "~/utils/pokeTypes";
 import { getAllPokemon } from "~/utils/pokeAPI";
 import { useEffect, useState } from "react";
 import { Pokemon, PokemonSprites } from "pokenode-ts";
 import Layout from "~/components/Layout";
+import Image from "next/image";
+
+export function getBackgroundColor(pokeType: Type) {
+    if (pokeType === "water") {
+        return "bg-water";
+    } else if (pokeType === "fire") {
+        return "bg-fire";
+    } else if (pokeType === "grass") {
+        return "bg-grass";
+    } else if (pokeType === "normal") {
+        return "bg-normal";
+    } else if (pokeType === "rock") {
+        return "bg-rock";
+    } else if (pokeType === "ground") {
+        return "bg-ground";
+    } else if (pokeType === "electric") {
+        return "bg-electric";
+    } else if (pokeType === "flying") {
+        return "bg-flying";
+    } else if (pokeType === "ice") {
+        return "bg-ice";
+    } else if (pokeType === "dragon") {
+        return "bg-dragon";
+    } else if (pokeType === "ghost") {
+        return "bg-ghost";
+    } else if (pokeType === "psychic") {
+        return "bg-psychic";
+    } else if (pokeType === "poison") {
+        return "bg-poison";
+    } else if (pokeType === "bug") {
+        return "bg-bug";
+    } else if (pokeType === "steel") {
+        return "bg-steel";
+    } else if (pokeType === "fairy") {
+        return "bg-fairy";
+    } else if (pokeType === "fighting") {
+        return "bg-fighting";
+    } else if (pokeType === "dark") {
+        return "bg-dark";
+    }
+}
 
 export default function PokedexSite() {
     const [allPokemon, setAllPokemon] = useState<Pokemon[]>([]);
@@ -27,12 +67,12 @@ export default function PokedexSite() {
 
     return (
         <Layout>
-            <div className="grid grid-cols-3">
-                <div className="flex flex-col w-2/3">
+            <div className="grid grid-cols-3 gap-2">
+                <div className="flex flex-col gap-2 w-3/4">
                     <button
                         className="text-3xl font-bold p-4 text-white border-none rounded-3xl cursor-pointer duration-300 bg-gray-500 textshadow"
                         onClick={() => {
-                            setShowTypeBox(true);
+                            setShowTypeBox(!showTypeBox);
                         }}
                     >
                         Show pokemon with the following type:
@@ -46,14 +86,22 @@ export default function PokedexSite() {
                         Reset Filter
                     </button>
                 </div>
-                <div>
+                <div
+                    className={`col-span-2 mb-8 transition-all duration-500 ease-in-out transform h-[252px] ${
+                        showTypeBox
+                            ? "opacity-100 scale-100 translate-y-0"
+                            : "opacity-0 scale-95 translate-y-4 pointer-events-none"
+                    }`}
+                >
                     {showTypeBox && (
-                        <div className="grid grid-cols-6 border-2 rounded-xl border-black p-2 gap-2 gap-x-2 w-fit col-span-2 min-w-fit">
+                        <div className="grid grid-cols-6 border-4 rounded-xl border-black p-2 gap-2 min-w-fit">
                             {buttonTypes.map((buttonType) => {
                                 return (
                                     <button
                                         key={buttonType}
-                                        className={`${buttonType} h-16 w-32`}
+                                        className={`${getBackgroundColor(
+                                            buttonType
+                                        )} p-4 rounded-lg font-bold text-xl textshadow text-white`}
                                         onClick={() => {
                                             setPokemonType(buttonType);
                                         }}
@@ -67,9 +115,12 @@ export default function PokedexSite() {
                 </div>
                 <div>
                     {spriteImage?.front_default !== undefined && (
-                        <img
-                            src={spriteImage?.front_default || undefined}
+                        <Image
+                            src={spriteImage?.front_default || ""}
                             alt="pokemon sprite"
+                            className="w-2/3 pixelated sticky top-0"
+                            width={96}
+                            height={96}
                         />
                     )}
                 </div>
@@ -91,7 +142,3 @@ export default function PokedexSite() {
         </Layout>
     );
 }
-
-//type buttons sollen optional sein
-//Scrolling anpassen
-//Dexlayout fixen

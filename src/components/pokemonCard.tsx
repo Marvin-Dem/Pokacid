@@ -1,6 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import type { Pokemon } from "pokenode-ts";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
+import { getBackgroundColor } from "~/pages/pokedex-site";
+import { Type } from "~/utils/pokeTypes";
 
 type PokemonCardProps = {
     pokemon: Pokemon;
@@ -13,12 +15,19 @@ export default function PokemonCard({
     onMouseLeave,
 }: PokemonCardProps) {
     const audioRef = useRef<HTMLAudioElement>(null);
+    const [listVisible, setListVisible] = useState(false);
+
+    useEffect(() => {
+        setListVisible(true);
+    }, []);
 
     return (
         <div
-            className={`${
-                pokemon.types[0]!.type.name
-            } items-center justify-between p-1.5 flex border-2 border-black rounded-3xl`}
+            className={`${getBackgroundColor(
+                pokemon.types[0]!.type.name as Type
+            )} items-center justify-between p-1.5 flex border-2 border-black rounded-3xl transition-all duration-500 ease-in-out transform ${
+                listVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
+            }`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
@@ -31,7 +40,10 @@ export default function PokemonCard({
             <div className="flex flex-col h-[72px]">
                 {pokemon.types.map((type) => {
                     return (
-                        <span className="text-3xl w-[8ch]" key={type.type.name}>
+                        <span
+                            className="text-3xl w-[8ch] font-semibold"
+                            key={type.type.name}
+                        >
                             {type.type.name}
                         </span>
                     );
@@ -43,9 +55,11 @@ export default function PokemonCard({
                         audioRef.current?.play();
                     }}
                 >
-                    <img
+                    <Image
                         src="https://cdn-icons-png.flaticon.com/512/4028/4028535.png"
                         alt="audio button"
+                        width={96}
+                        height={96}
                     />
                     <audio ref={audioRef} src={pokemon.cries.legacy}></audio>
                 </button>
