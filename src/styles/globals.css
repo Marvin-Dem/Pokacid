@@ -15,6 +15,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.pixelated {
+    image-rendering: pixelated;
+}
+
 .general {
     border: 3px solid black;
     border-radius: 30px;
@@ -34,11 +38,6 @@ body {
     color: black;
 }
 
-.poke-type {
-    font-size: 30px;
-    padding-left: 30px;
-    padding-right: 30px;
-}
 .poke-number {
     font-size: 30px;
     font-weight: bold;
@@ -46,87 +45,10 @@ body {
     align-self: flex-end;
     width: 4ch;
 }
-.water {
-    background-color: dodgerblue;
-}
-.fire {
-    background-color: rgb(255, 22, 69);
-}
-.grass {
-    background-color: rgb(120, 241, 0);
-}
-.normal {
-    background-color: rgb(227, 222, 178);
-}
-.flying {
-    background-color: rgb(225, 255, 255);
-}
-.poison {
-    background-color: darkmagenta;
-}
-.ghost {
-    background-color: mediumpurple;
-}
-.psychic {
-    background-color: indigo;
-}
-.ground {
-    background-color: rgba(184, 135, 11, 0.804);
-}
-.dragon {
-    background-color: rgb(68, 104, 104);
-}
-.ice {
-    background-color: rgb(35, 255, 255);
-}
-.bug {
-    background-color: rgb(23, 96, 23);
-}
-.fighting {
-    background-color: rgb(255, 129, 83);
-}
-.rock {
-    background-color: rgb(130, 102, 102);
-}
-.electric {
-    background-color: rgb(240, 240, 0);
-}
-.steel {
-    background-color: rgba(143, 143, 143, 0.716);
-}
-.dark {
-    background-color: rgb(40, 40, 40);
-}
-.fairy {
-    background-color: hotpink;
-}
-.reset {
-    background-color: lightslategray;
+
+.text-shadow {
     text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(0, 0, 0),
         0 0 0.2em rgb(0, 0, 0);
-    color: white;
-    font-size: 30px;
-    padding: 15px;
-    border: none;
-    border-radius: 15px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    margin-bottom: 30px;
-}
-.filter-button {
-    height: 65px;
-    width: 125px;
-}
-.button {
-    text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(0, 0, 0),
-        0 0 0.2em rgb(0, 0, 0);
-    color: white;
-    font-size: 30px;
-    padding: 15px;
-    border: none;
-    border-radius: 15px;
-    transition-duration: 0.4s;
-    cursor: pointer;
 }
 
 .button:hover {
@@ -138,23 +60,6 @@ body {
     justify-content: space-between;
     box-shadow: 0px 5px black;
     height: 100px;
-}
-
-.button-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 5px;
-    margin-bottom: 30px;
-    width: 1000px;
-}
-.audio-button {
-    display: flex;
-    border-radius: 100%;
-    height: 40px;
-    width: 40px;
-    padding: 0px;
-    border: 0px;
 }
 
 .background {
@@ -272,11 +177,6 @@ body {
     100% {
         background-position: -148px 0;
     }
-}
-
-.dex-header-text {
-    font-size: 25px;
-    font-weight: bold;
 }
 
 .inner-card-wrapper {
