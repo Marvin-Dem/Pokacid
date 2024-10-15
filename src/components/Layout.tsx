@@ -10,8 +10,12 @@ export default function Layout({ children }: LayoutProps) {
         <div className="wrapper">
             <header className="header">
                 <div
-                    onMouseEnter={() => setIsOpen(true)}
-                    onMouseLeave={() => setIsOpen(false)}
+                    onMouseEnter={() => {
+                        setIsOpen(true);
+                    }}
+                    onMouseLeave={() => {
+                        setIsOpen(false);
+                    }}
                     className="pokeball"
                 ></div>
                 <div className="pokacid">Pokacid</div>
@@ -24,8 +28,12 @@ export default function Layout({ children }: LayoutProps) {
                 </div>
                 {isOpen && (
                     <aside
-                        onMouseEnter={() => setIsOpen(true)}
-                        onMouseLeave={() => setIsOpen(false)}
+                        onMouseEnter={() => {
+                            setIsOpen(true);
+                        }}
+                        onMouseLeave={() => {
+                            setIsOpen(false);
+                        }}
                         className="sidebar"
                     >
                         <nav className="navbar">
