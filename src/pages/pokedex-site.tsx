@@ -7,10 +7,7 @@ import { Pokemon } from "pokenode-ts";
 import Layout from "~/components/Layout";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
 import { faList, faGrip } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faGrip, faList);
 
 export function getBackgroundColor(pokeType: Type) {
     if (pokeType === "water") {
@@ -178,17 +175,18 @@ export default function PokedexSite() {
                     </div>
                 )}
                 {dexLayout === "grid" && (
-                    <div id="pokemon-card-wrapper" className="col-span-3">
-                        <div className="grid grid-cols-3">
-                            {filteredList.map((pokemon) => {
-                                return (
-                                    <PokemonGridCard
-                                        key={pokemon.name}
-                                        pokemon={pokemon}
-                                    />
-                                );
-                            })}
-                        </div>
+                    <div
+                        id="pokemon-card-wrapper"
+                        className="col-span-3 grid grid-cols-3"
+                    >
+                        {filteredList.map((pokemon) => {
+                            return (
+                                <PokemonGridCard
+                                    key={pokemon.name}
+                                    pokemon={pokemon}
+                                />
+                            );
+                        })}
                     </div>
                 )}
             </div>
