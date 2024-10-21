@@ -1,10 +1,13 @@
-import PokemonCard from "~/components/pokemonCard";
+import PokemonListCard from "~/components/pokemonListCard";
+import PokemonGridCard from "~/components/pokemonGridCard";
 import getPokemonByType, { Type, buttonTypes } from "~/utils/pokeTypes";
 import { getAllPokemon } from "~/utils/pokeAPI";
 import { useEffect, useState } from "react";
 import { Pokemon } from "pokenode-ts";
 import Layout from "~/components/Layout";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faGrip } from "@fortawesome/free-solid-svg-icons";
 
 export function getBackgroundColor(pokeType: Type) {
     if (pokeType === "water") {
@@ -51,6 +54,7 @@ export default function PokedexSite() {
     const [pokemonType, setPokemonType] = useState<Type>();
     const [spriteImage, setSpriteImage] = useState<string>();
     const [showTypeBox, setShowTypeBox] = useState<boolean>(false);
+    const [dexLayout, setDexLayout] = useState<"list" | "grid">("list");
 
     let filteredList: Pokemon[];
     if (pokemonType === undefined) {
@@ -114,6 +118,24 @@ export default function PokedexSite() {
                         </div>
                     )}
                 </div>
+                <div className="bg-gray-500 border border-black rounded-lg w-full flex space-around justify-center gap-12 py-2 col-span-3">
+                    <button
+                        className="p-2 border-2 border-black rounded-sm"
+                        onClick={() => {
+                            setDexLayout("list");
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faList} />
+                    </button>
+                    <button
+                        className="p-2 border-2 border-black rounded-sm"
+                        onClick={() => {
+                            setDexLayout("grid");
+                        }}
+                    >
+                        <FontAwesomeIcon icon={faGrip} />
+                    </button>
+                </div>
                 <div>
                     {spriteImage !== undefined && (
                         <Image
@@ -125,28 +147,48 @@ export default function PokedexSite() {
                         />
                     )}
                 </div>
-                <div id="pokemon-card-wrapper" className="col-span-2">
-                    {filteredList.map((pokemon) => {
-                        return (
-                            <PokemonCard
-                                key={pokemon.name}
-                                pokemon={pokemon}
-                                onMouseEnter={() => {
-                                    if (
-                                        pokemon.sprites.front_default === null
-                                    ) {
-                                        return;
-                                    }
+                {dexLayout === "list" && (
+                    <div id="pokemon-card-wrapper" className="col-span-2">
+                        {filteredList.map((pokemon) => {
+                            return (
+                                <PokemonListCard
+                                    key={pokemon.name}
+                                    pokemon={pokemon}
+                                    onMouseEnter={() => {
+                                        if (
+                                            pokemon.sprites.front_default ===
+                                            null
+                                        ) {
+                                            return;
+                                        }
 
-                                    setSpriteImage(
-                                        pokemon.sprites.front_default
-                                    );
-                                }}
-                                onMouseLeave={() => setSpriteImage(undefined)}
-                            />
-                        );
-                    })}
-                </div>
+                                        setSpriteImage(
+                                            pokemon.sprites.front_default
+                                        );
+                                    }}
+                                    onMouseLeave={() =>
+                                        setSpriteImage(undefined)
+                                    }
+                                />
+                            );
+                        })}
+                    </div>
+                )}
+                {dexLayout === "grid" && (
+                    <div
+                        id="pokemon-card-wrapper"
+                        className="col-span-3 grid grid-cols-3"
+                    >
+                        {filteredList.map((pokemon) => {
+                            return (
+                                <PokemonGridCard
+                                    key={pokemon.name}
+                                    pokemon={pokemon}
+                                />
+                            );
+                        })}
+                    </div>
+                )}
             </div>
         </Layout>
     );

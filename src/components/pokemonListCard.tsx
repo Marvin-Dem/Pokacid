@@ -9,7 +9,7 @@ type PokemonCardProps = {
     onMouseEnter: () => void;
     onMouseLeave: () => void;
 };
-export default function PokemonCard({
+export default function PokemonListCard({
     pokemon,
     onMouseEnter,
     onMouseLeave,
