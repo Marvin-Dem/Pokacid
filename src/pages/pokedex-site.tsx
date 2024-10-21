@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { Pokemon } from "pokenode-ts";
 import Layout from "~/components/Layout";
 import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faList, faGrip } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faGrip, faList);
 
 export function getBackgroundColor(pokeType: Type) {
     if (pokeType === "water") {
@@ -113,6 +118,14 @@ export default function PokedexSite() {
                             })}
                         </div>
                     )}
+                </div>
+                <div className="bg-gray-500 border border-black rounded-lg w-full flex space-around justify-center gap-4 col-span-3">
+                    <button className="p-2 border-2 border-black rounded-sm">
+                        <FontAwesomeIcon icon={faList} />
+                    </button>
+                    <button className="p-2 border-2 border-black rounded-sm">
+                        <FontAwesomeIcon icon={faGrip} />
+                    </button>
                 </div>
                 <div>
                     {spriteImage !== undefined && (
