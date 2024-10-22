@@ -24,7 +24,11 @@ export default function Layout({ children }: LayoutProps) {
             <div className="bodywrapper">
                 <div className="body">
                     <main className="main">{children}</main>
-                    <footer className="footer">About me</footer>
+                    <footer className="footer">
+                        <a href="https://portfolio-site-k8ompbdj7-marvin-dems-projects.vercel.app/">
+                            About me
+                        </a>
+                    </footer>
                 </div>
                 {isOpen && (
                     <aside
