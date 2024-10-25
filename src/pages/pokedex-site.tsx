@@ -74,7 +74,7 @@ export default function PokedexSite() {
             <div className="grid grid-cols-3 gap-2 gap-x-12">
                 <div className="flex flex-col gap-2">
                     <button
-                        className="text-3xl font-bold p-4 text-white border-none rounded-3xl duration-300 bg-gray-500 text-shadow"
+                        className="text-3xl font-bold p-4 text-white border-none rounded-lg duration-300 bg-black text-black-shadow"
                         onClick={() => {
                             setShowTypeBox(!showTypeBox);
                         }}
@@ -82,7 +82,7 @@ export default function PokedexSite() {
                         Show pokemon with the following type:
                     </button>
                     <button
-                        className="p-4 text-3xl text-white border-none rounded-3xl duration-300 bg-gray-500 text-shadow"
+                        className="p-4 text-3xl text-white border-none rounded-lg duration-300 bg-black text-black-shadow"
                         onClick={() => {
                             setPokemonType(undefined);
                         }}
@@ -99,14 +99,14 @@ export default function PokedexSite() {
                     }`}
                 >
                     {showTypeBox && (
-                        <div className="grid grid-cols-6 border-4 rounded-xl border-black p-2 gap-2">
+                        <div className="grid grid-cols-6 border-4 rounded-lg border-black p-2 gap-2">
                             {buttonTypes.map((buttonType) => {
                                 return (
                                     <button
                                         key={buttonType}
                                         className={`${getBackgroundColor(
                                             buttonType
-                                        )} p-4 rounded-lg font-bold text-xl text-shadow text-white`}
+                                        )} p-4 rounded-lg font-bold text-xl text-black-shadow text-white`}
                                         onClick={() => {
                                             setPokemonType(buttonType);
                                         }}
@@ -118,9 +118,9 @@ export default function PokedexSite() {
                         </div>
                     )}
                 </div>
-                <div className="bg-gray-500 border border-black rounded-lg w-full flex space-around justify-center gap-12 py-2 col-span-3">
+                <div className="bg-black rounded-lg w-full flex space-around justify-center gap-12 py-2 col-span-3">
                     <button
-                        className="p-2 border-2 border-black rounded-sm"
+                        className="p-2 border-2 border-white rounded-sm text-white"
                         onClick={() => {
                             setDexLayout("list");
                         }}
@@ -128,7 +128,7 @@ export default function PokedexSite() {
                         <FontAwesomeIcon icon={faList} />
                     </button>
                     <button
-                        className="p-2 border-2 border-black rounded-sm"
+                        className="p-2 border-2 border-white rounded-sm text-white"
                         onClick={() => {
                             setDexLayout("grid");
                         }}

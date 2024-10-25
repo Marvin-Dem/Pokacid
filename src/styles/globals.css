@@ -46,9 +46,19 @@ body {
     width: 4ch;
 }
 
-.text-shadow {
+.text-black-shadow {
     text-shadow: 1px 1px 2px rgb(0, 0, 0), 0 0 1em rgb(0, 0, 0),
         0 0 0.2em rgb(0, 0, 0);
+}
+
+.text-white-shadow {
+    text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255),
+        0 0 0.2em rgb(255, 255, 255);
+}
+
+.text-white-shadow-hover:hover {
+    text-shadow: 1px 1px 2px rgb(255, 255, 255), 0 0 1em rgb(255, 255, 255),
+        0 0 0.2em rgb(255, 255, 255);
 }
 
 .button:hover {
@@ -60,10 +70,6 @@ body {
     justify-content: space-between;
     box-shadow: 0px 5px black;
     height: 100px;
-}
-
-.background {
-    background-color: burlywood;
 }
 
 .sidebar {
@@ -89,28 +95,6 @@ body {
         margin-left: 0;
         margin-right: -200px;
     }
-}
-
-.pokacid {
-    font-size: 50px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    border: solid black 2px;
-    border-top: 0;
-    height: 50px;
-    padding: 30px;
-    border-radius: 25%;
-}
-
-.footer {
-    font-size: 20px;
-    padding: 30px;
-    font-weight: bolder;
-    display: flex;
-    justify-content: center;
-    border: solid black 3px;
-    border-bottom: 0;
 }
 
 .wrapper {
