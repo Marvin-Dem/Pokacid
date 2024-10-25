@@ -12,7 +12,7 @@ export default function Home() {
             <div className="grid grid-cols-2 gap-4 w-fit mx-auto">
                 <Link
                     href="/pokedex-site"
-                    className="p-12 border border-black rounded-md bg-indigo-200 hover:bg-indigo-300 w-fit"
+                    className="p-12 border border-black rounded-md bg-black text-white hover:border-white w-fit"
                 >
                     Watch your Pokedex
                 </Link>
