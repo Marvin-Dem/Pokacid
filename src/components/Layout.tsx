@@ -8,8 +8,8 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className="wrapper bg-[url('/fire-bg.jpg')] bg-repeat">
-            <div className="bg-[url('/fire-sil.png')] bg-right-bottom bg-no-repeat bg-fixed bg-[length:300px_250px]">
+        <div className="wrapper bg-[url('/fire-bg.jpg')]">
+            <div className="bg-[url('/fire-sil.png')] bg-right-bottom bg-no-repeat bg-fixed bg-[length:310px_233px]">
                 <header className="header">
                     <div
                         onMouseEnter={() => {
