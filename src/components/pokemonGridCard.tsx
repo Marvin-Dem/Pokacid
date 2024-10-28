@@ -29,7 +29,10 @@ export default function PokemonGridCard({ pokemon }: PokemonCardProps) {
                 <div className="flex flex-col gap-y-1 w-full">
                     <div className="flex font-bold text-3xl gap-1">
                         <span className="w-[4ch]">{pokemon.id}</span>
-                        <a href={`/detailedpokemon/${pokemon.id}`}>
+                        <a
+                            className="whitespace-nowrap"
+                            href={`/detailedpokemon/${pokemon.id}`}
+                        >
                             {pokemon.name}
                         </a>
                     </div>

@@ -97,26 +97,9 @@ body {
     }
 }
 
-.wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.navbar {
-    display: flex;
-    flex-direction: column;
-}
-
 .main {
     padding: 20px;
-    padding-left: var(--sidebarspace);
     width: 100%;
-}
-
-.bodywrapper {
-    display: flex;
-    min-height: calc(100vh - 100px);
-    flex-direction: row-reverse;
 }
 
 .footer-pos {
