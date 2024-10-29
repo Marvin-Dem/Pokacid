@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <div className="bg-[url('/fire-bg.jpg')]">
             <div className="bg-[url('/fire-sil.png')] bg-right-bottom bg-no-repeat bg-fixed bg-[length:310px_233px] flex flex-col">
-                <header className="flex justify-between h-headerheight shadow-[0_5px_black]">
+                <header className="flex justify-between headerheight shadow-[0_5px_black]">
                     <div
                         onMouseEnter={() => {
                             setIsOpen(true);
