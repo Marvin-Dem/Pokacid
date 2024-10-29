@@ -14,8 +14,8 @@ module.exports = {
                 },
                 pokeballopening: {
                     "0%": { "background-position-x": "-73px" },
-                    "99.999%": { "background-position": "-73px 0" },
-                    "100%": { "background-position": "-148px 0" },
+                    "99.999%": { "background-position-x": "-73px" },
+                    "100%": { "background-position-x": "-148px" },
                 },
             },
             width: {
