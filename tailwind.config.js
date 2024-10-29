@@ -22,7 +22,7 @@ module.exports = {
                 sidebar: "200px",
             },
             height: {
-                headerheight: "100px",
+                header: "100px",
             },
         },
         screens: {
