@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
     return (
         <div className="bg-[url('/fire-bg.jpg')]">
             <div className="bg-[url('/fire-sil.png')] bg-right-bottom bg-no-repeat bg-fixed bg-[length:310px_233px] flex flex-col">
-                <header className="flex justify-between h-[100px] shadow-[0_5px_black]">
+                <header className="flex justify-between h-headerheight shadow-[0_5px_black]">
                     <div
                         onMouseEnter={() => {
                             setIsOpen(true);
@@ -30,7 +30,7 @@ export default function Layout({ children }: LayoutProps) {
                 </header>
                 <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-between">
                     <div className="w-full">
-                        <div className="flex items-center flex-col justify-between min-h-full container mx-auto px-sidebarspace">
+                        <div className="flex items-center flex-col justify-between min-h-full container mx-auto px-sidebar">
                             <main className="p-5 w-full">{children}</main>
                             <footer className="text-white bg-black p-4 px-8 flex text-center rounded-t-lg text-white-shadow-hover">
                                 <Link
@@ -50,7 +50,7 @@ export default function Layout({ children }: LayoutProps) {
                             onMouseLeave={() => {
                                 setIsOpen(false);
                             }}
-                            className="flex flex-col p-1 border-r-4 border-black w-sidebarspace -mr-sidebarspace animate-sidebaropening z-10"
+                            className="flex flex-col p-1 border-r-4 w-sidebar -mr-sidebar animate-sidebaropening z-10"
                         >
                             <nav className="flex flex-col gap-2 text-lg">
                                 <Link href="/">Go to Homepage</Link>

@@ -13,13 +13,16 @@ module.exports = {
                     "100%": { marginLeft: "0", marginRight: "-200px" },
                 },
                 pokeballopening: {
-                    "0%": { "background-position": "-73px 0" },
+                    "0%": { "background-position-x": "-73px" },
                     "99.999%": { "background-position": "-73px 0" },
                     "100%": { "background-position": "-148px 0" },
                 },
             },
             width: {
-                sidebarspace: "200px",
+                sidebar: "200px",
+            },
+            height: {
+                headerheight: "100px",
             },
         },
         screens: {
