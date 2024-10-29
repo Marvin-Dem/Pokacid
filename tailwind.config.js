@@ -2,6 +2,26 @@
 module.exports = {
     content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
     theme: {
+        extend: {
+            animation: {
+                sidebaropening: "sidebaropening 1.5s forwards -0.1s",
+                pokeballopening: "pokeballopening 0.6s forwards 0.2s",
+            },
+            keyframes: {
+                sidebaropening: {
+                    "0%": { marginLeft: "-200px", marginRight: "0" },
+                    "100%": { marginLeft: "0", marginRight: "-200px" },
+                },
+                pokeballopening: {
+                    "0%": { "background-position": "-73px 0" },
+                    "99.999%": { "background-position": "-73px 0" },
+                    "100%": { "background-position": "-148px 0" },
+                },
+            },
+            width: {
+                sidebarspace: "200px",
+            },
+        },
         screens: {
             mobile: "375px",
             desktop: "1440px",
