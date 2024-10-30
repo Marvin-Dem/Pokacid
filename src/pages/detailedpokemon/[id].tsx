@@ -18,6 +18,7 @@ export default function DetailedPokemon() {
     const [pokemon, setPokemon] = useState<Pokemon>();
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
     const [abilities, setAbilities] = useState<Ability[]>();
+    const [isShiny, setIsShiny] = useState<boolean>(false);
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
     if (Array.isArray(router.query.id)) {
@@ -81,8 +82,13 @@ export default function DetailedPokemon() {
                         alt="Pokemon sprite"
                         width="250"
                         height="250"
-                        className="poke-detail-sprite"
-                        src={pokemon.sprites.front_default!}
+                        className="poke-detail-sprite cursor-pointer"
+                        src={
+                            isShiny
+                                ? pokemon.sprites.front_shiny!
+                                : pokemon.sprites.front_default!
+                        }
+                        onClick={() => setIsShiny(!isShiny)}
                     />
                     {/* Base Stat Container */}
                     <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4">
