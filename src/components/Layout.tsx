@@ -20,13 +20,15 @@ export default function Layout({ children }: LayoutProps) {
                         }}
                         className="flex items-start h-full bg-[url('/pixelpokeball.png')] bg-[0_0] [aspect-ratio:75/100] hover:animate-pokeballopening"
                     ></div>
-                    <Image
-                        src="/pokacid-logo.png"
-                        alt="pokacid logo"
-                        width={342}
-                        height={100}
-                    />
-                    <button className="m-2.5">Light/Dark</button>
+                    <Link href="/" className="my-2">
+                        <Image
+                            src="/pokacid-logo.png"
+                            alt="pokacid logo"
+                            width={288}
+                            height={84}
+                        />
+                    </Link>
+                    <div className="[aspect-ratio:75/100]"></div>
                 </header>
                 <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-between">
                     <div className="w-full">
