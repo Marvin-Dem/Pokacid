@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
                             height={84}
                         />
                     </Link>
-                    <div></div>
+                    <div className="[aspect-ratio:75/100]"></div>
                 </header>
                 <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-between">
                     <div className="w-full">
