@@ -20,11 +20,9 @@ module.exports = {
             },
             width: {
                 sidebar: "200px",
-                spriteimage: "250px",
             },
             height: {
                 header: "100px",
-                spriteimage: "250px",
             },
         },
         screens: {
@@ -53,7 +51,6 @@ module.exports = {
             steel: "rgb(143, 143, 143)",
             dark: "rgb(40, 40, 40)",
             fairy: "hotpink",
-            "white-op": "rgba(255, 255, 255, 0.2)",
         },
     },
     plugins: [],
