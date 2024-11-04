@@ -84,7 +84,7 @@ export default function DetailedPokemon() {
                         alt="Pokemon sprite"
                         width="250"
                         height="250"
-                        className="h-min-[250px] w-min-[250px] border-8 border-double border-black rounded-xl cursor-pointer bg-white bg-opacity-20"
+                        className="h-min-[250px] w-min-[250px] border-8 border-double border-black rounded-xl cursor-pointer bg-white/20"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -93,7 +93,7 @@ export default function DetailedPokemon() {
                         onClick={() => setIsShiny(!isShiny)}
                     />
                     {/* Base Stat Container */}
-                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4 bg-white bg-opacity-20">
+                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4 bg-white/20">
                         <span className="text-xl border-b-4 font-bold border-black">
                             Base Stats:
                         </span>
@@ -116,7 +116,7 @@ export default function DetailedPokemon() {
                         </span>
                     </div>
                     {/* Ability Container */}
-                    <div className="flex flex-col border-2 border-black rounded-lg p-4 bg-white bg-opacity-20">
+                    <div className="flex flex-col border-2 border-black rounded-lg p-4 bg-white/20">
                         <span className="text-xl font-bold">Abilities:</span>
                         <div className="flex flex-col">
                             {pokemon.abilities.map((pokemonAbility) => {
@@ -166,7 +166,7 @@ export default function DetailedPokemon() {
                 </div>
                 <div className="flex w-full items-start flex-col gap-2.5">
                     {/* Upper Detail Container */}
-                    <div className="flex border-2 border-black rounded-lg gap-8 items-center p-3.5 bg-white bg-opacity-20">
+                    <div className="flex border-2 border-black rounded-lg gap-8 items-center p-3.5 bg-white/20">
                         <div className="flex flex-col gap-3.5">
                             <div className="flex gap-3.5">
                                 <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>

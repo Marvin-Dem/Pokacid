@@ -32,7 +32,7 @@ export default function Layout({ children }: LayoutProps) {
                 </header>
                 <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-between">
                     <div className="w-full">
-                        <div className="flex items-center flex-col justify-between min-h-full container pr-[200px] ml-[200px]">
+                        <div className="flex items-center flex-col justify-between min-h-full container pl-[200px]">
                             <main className="py-5 w-full">{children}</main>
                             <footer className="text-white bg-black p-4 px-8 flex text-center rounded-t-lg text-white-shadow-hover">
                                 <Link
