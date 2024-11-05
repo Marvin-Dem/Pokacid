@@ -24,6 +24,9 @@ module.exports = {
             height: {
                 header: "100px",
             },
+            padding: {
+                sidebar: "200px",
+            },
         },
         screens: {
             mobile: "375px",

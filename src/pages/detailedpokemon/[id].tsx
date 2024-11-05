@@ -5,6 +5,8 @@ import { Fragment, useEffect, useState } from "react";
 import { Pokemon, PokemonSpecies, Ability } from "pokenode-ts";
 import { useRef } from "react";
 import Image from "next/image";
+import { getBackgroundColor } from "~/pages/pokedex-site";
+import { Type } from "~/utils/pokeTypes";
 
 const statMap = new Map();
 statMap.set("hp", "HP");
@@ -76,13 +78,13 @@ export default function DetailedPokemon() {
 
     return (
         <Layout>
-            <div className="detail-wrapper">
-                <div className="detail-left-container">
+            <div className="flex gap-3.5">
+                <div className="flex flex-col gap-3.5">
                     <Image
                         alt="Pokemon sprite"
                         width="250"
                         height="250"
-                        className="poke-detail-sprite cursor-pointer"
+                        className="h-min-[250px] w-min-[250px] border-8 border-double border-black rounded-xl cursor-pointer bg-white/20"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -91,30 +93,30 @@ export default function DetailedPokemon() {
                         onClick={() => setIsShiny(!isShiny)}
                     />
                     {/* Base Stat Container */}
-                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4">
+                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4 bg-white/20">
                         <span className="text-xl border-b-4 font-bold border-black">
                             Base Stats:
                         </span>
-                        <div className="stat-wrapper">
+                        <div className="grid grid-cols-2 gap-y-1">
                             {pokemon.stats.map((stat) => {
                                 return (
                                     <Fragment key={stat.stat.name}>
-                                        <span className="stat">
+                                        <span className="text-lg">
                                             {statMap.get(stat.stat.name)}
                                         </span>
-                                        <span className="stat">
+                                        <span className="text-lg">
                                             {stat.base_stat || "-"}
                                         </span>
                                     </Fragment>
                                 );
                             })}
                         </div>
-                        <span className="base-stats-footer">
+                        <span className="text-xl font-bold">
                             Total Base Stat: {totalStats}
                         </span>
                     </div>
                     {/* Ability Container */}
-                    <div className="flex flex-col border-2 border-black rounded-lg p-4">
+                    <div className="flex flex-col border-2 border-black rounded-lg p-4 bg-white/20">
                         <span className="text-xl font-bold">Abilities:</span>
                         <div className="flex flex-col">
                             {pokemon.abilities.map((pokemonAbility) => {
@@ -162,36 +164,38 @@ export default function DetailedPokemon() {
                         </div>
                     </div>
                 </div>
-                <div className="detail-body">
+                <div className="flex w-full items-start flex-col gap-2.5">
                     {/* Upper Detail Container */}
-                    <div className="detail-upper-container">
-                        <div className="name-number-wrapper">
-                            <div className="name-number-inner">
-                                <span className="poke-detail-number">{`#${pokemon.id}`}</span>
-                                <span className="poke-detail-name">
+                    <div className="flex border-2 border-black rounded-lg gap-8 items-center p-3.5 bg-white/20">
+                        <div className="flex flex-col gap-3.5">
+                            <div className="flex gap-3.5">
+                                <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>
+                                <span className="text-3xl font-bold">
                                     {pokemon.name}
                                 </span>
                             </div>
                             <div>
-                                <span className="poke-detail-japname">
+                                <span className="text-3xl font-bold mt-1">
                                     jap: {japname?.name || "-"}
                                 </span>
-                            </div>{" "}
+                            </div>
                         </div>
-                        <div className="habitat-gen-wrapper">
-                            <span className="habitat">
+                        <div className="flex flex-col text-3xl gap-3.5">
+                            <span className="text-3xl font-bold">
                                 habitat: {pokemonSpecies.habitat.name}{" "}
                             </span>
-                            <span className="gen">
+                            <span className="text-3xl font-bold">
                                 existing since: Generation{" "}
                                 {gen?.toUpperCase() || "-"}
                             </span>
                         </div>
-                        <div className="type-wrapper">
+                        <div className="gap-3 flex flex-col">
                             {pokemon.types.map((type) => {
                                 return (
                                     <span
-                                        className={`poke-detail-type  ${type.type.name}`}
+                                        className={`${getBackgroundColor(
+                                            type.type.name as Type
+                                        )} border-2 border-black rounded-lg p-1.5 text-3xl`}
                                         key={type.type.name}
                                     >
                                         {type.type.name}
@@ -199,18 +203,14 @@ export default function DetailedPokemon() {
                                 );
                             })}
                         </div>
-                    </div>
-                    {/* audiobutton-chain-container */}
-                    <div className="button-chain-container">
                         <button
-                            className="audio-button"
                             onClick={() => {
                                 audioRef.current?.play();
                             }}
                         >
                             <img
                                 src="https://cdn-icons-png.flaticon.com/512/4028/4028535.png"
-                                className="audio-button"
+                                className="w-auto h-[100px]"
                             />
                             <audio
                                 ref={audioRef}
