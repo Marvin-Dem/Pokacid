@@ -30,7 +30,7 @@ export default function Layout({ children }: LayoutProps) {
                     </Link>
                     <div className="[aspect-ratio:75/100]"></div>
                 </header>
-                <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-between">
+                <div className="min-h-[calc(100vh-100px)] flex flex-row-reverse justify-center">
                     <div className="w-full">
                         <div className="flex items-center flex-col justify-between min-h-full container pl-[200px]">
                             <main className="py-5 w-full">{children}</main>
