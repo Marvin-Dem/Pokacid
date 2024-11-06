@@ -29,7 +29,7 @@ module.exports = {
             },
         },
         screens: {
-            mobile: "375px",
+            mobile: "380px",
             desktop: "1440px",
         },
 
