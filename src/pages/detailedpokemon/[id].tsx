@@ -78,13 +78,14 @@ export default function DetailedPokemon() {
 
     return (
         <Layout>
-            <div className="flex gap-3.5">
-                <div className="flex flex-col gap-3.5">
+            <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4">
+                {/* left wrapper */}
+                <div className="grid gap-3.5 grid-cols-subgrid desktop:col-span-3 col-span-full content-start">
                     <Image
                         alt="Pokemon sprite"
-                        width="250"
-                        height="250"
-                        className="h-min-[250px] w-min-[250px] border-8 border-double border-black rounded-xl cursor-pointer bg-white/20"
+                        width="96"
+                        height="96"
+                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -93,7 +94,7 @@ export default function DetailedPokemon() {
                         onClick={() => setIsShiny(!isShiny)}
                     />
                     {/* Base Stat Container */}
-                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4 bg-white/20">
+                    <div className="flex flex-col gap-4 border-2 border-black rounded-lg p-4 bg-white/20 col-span-full">
                         <span className="text-xl border-b-4 font-bold border-black">
                             Base Stats:
                         </span>
@@ -116,7 +117,7 @@ export default function DetailedPokemon() {
                         </span>
                     </div>
                     {/* Ability Container */}
-                    <div className="flex flex-col border-2 border-black rounded-lg p-4 bg-white/20">
+                    <div className="flex flex-col border-2 border-black rounded-lg p-4 bg-white/20 col-span-full">
                         <span className="text-xl font-bold">Abilities:</span>
                         <div className="flex flex-col">
                             {pokemon.abilities.map((pokemonAbility) => {
@@ -164,9 +165,11 @@ export default function DetailedPokemon() {
                         </div>
                     </div>
                 </div>
-                <div className="flex w-full items-start flex-col gap-2.5">
+                {/* right wrapper */}
+                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start">
                     {/* Upper Detail Container */}
-                    <div className="flex border-2 border-black rounded-lg gap-8 items-center p-3.5 bg-white/20">
+                    <div className="flex desktop:flex-row flex-col gap-8 col-span-full border-2 border-black rounded-lg p-3.5 bg-white/20">
+                        {/* name wrapper */}
                         <div className="flex flex-col gap-3.5">
                             <div className="flex gap-3.5">
                                 <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>
@@ -180,6 +183,7 @@ export default function DetailedPokemon() {
                                 </span>
                             </div>
                         </div>
+                        {/* habitat gen wrapper */}
                         <div className="flex flex-col text-3xl gap-3.5">
                             <span className="text-3xl font-bold">
                                 habitat: {pokemonSpecies.habitat.name}{" "}
@@ -189,7 +193,8 @@ export default function DetailedPokemon() {
                                 {gen?.toUpperCase() || "-"}
                             </span>
                         </div>
-                        <div className="gap-3 flex flex-col">
+                        {/* pokemon type wrapper */}
+                        <div className="gap-3 flex desktop:flex-col">
                             {pokemon.types.map((type) => {
                                 return (
                                     <span
@@ -208,9 +213,11 @@ export default function DetailedPokemon() {
                                 audioRef.current?.play();
                             }}
                         >
-                            <img
-                                src="https://cdn-icons-png.flaticon.com/512/4028/4028535.png"
-                                className="w-auto h-[100px]"
+                            <Image
+                                src="/PlayButton.png"
+                                alt="audio button"
+                                width={96}
+                                height={96}
                             />
                             <audio
                                 ref={audioRef}
