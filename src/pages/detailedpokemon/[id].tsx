@@ -80,12 +80,12 @@ export default function DetailedPokemon() {
         <Layout>
             <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4">
                 {/* left wrapper */}
-                <div className="grid gap-3.5 grid-cols-subgrid desktop:col-span-3 col-span-4 content-start">
+                <div className="grid gap-3.5 grid-cols-subgrid desktop:col-span-3 col-span-full content-start">
                     <Image
                         alt="Pokemon sprite"
                         width="96"
                         height="96"
-                        className="h-min-[250px] pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full"
+                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -166,9 +166,9 @@ export default function DetailedPokemon() {
                     </div>
                 </div>
                 {/* right wrapper */}
-                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-4 content-start">
+                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start">
                     {/* Upper Detail Container */}
-                    <div className="flex desktop:flex-row flex-col gap-8 col-span-9 border-2 border-black rounded-lg p-3.5 bg-white/20">
+                    <div className="flex desktop:flex-row flex-col gap-8 col-span-full border-2 border-black rounded-lg p-3.5 bg-white/20">
                         {/* name wrapper */}
                         <div className="flex flex-col gap-3.5">
                             <div className="flex gap-3.5">
