@@ -92,10 +92,9 @@ export default function PokedexSite() {
                         Reset Filter
                     </button>
                 </div>
-                {/* Ensures that there is enough space for the type filter container, so the elements positions below are not affected by it by the state. */}
-                {/* margin bottom 40 is necessary for enough space for the type filter container, so it wont overlap the elements below  */}
                 {/* type box  */}
                 <div
+                    // margin bottom is necessary for enough space for the type filter container, so it wont overlap the elements below
                     className={`col-span-full desktop:col-span-8 mb-40 desktop:mb-8 transition-all duration-500 transform h-[252px] ${
                         showTypeBox
                             ? "opacity-100 scale-100 translate-y-0"
