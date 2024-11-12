@@ -71,8 +71,10 @@ export default function PokedexSite() {
 
     return (
         <Layout>
-            <div className="grid grid-cols-3 gap-2 gap-x-12">
-                <div className="flex flex-col gap-2">
+            {/* main content wrapper  */}
+            <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4 col-span-full content-start gap-x-12">
+                {/* button wrapper  */}
+                <div className="flex flex-col gap-2 col-span-full desktop:col-span-4">
                     <button
                         className="text-3xl font-bold p-4 text-white border-none rounded-lg duration-300 bg-black text-black-shadow"
                         onClick={() => {
@@ -91,15 +93,16 @@ export default function PokedexSite() {
                     </button>
                 </div>
                 {/* Ensures that there is enough space for the type filter container, so the elements positions below are not affected by it by the state. */}
+                {/* type box  */}
                 <div
-                    className={`col-span-2 mb-8 transition-all duration-500 transform h-[252px] ${
+                    className={`col-span-full desktop:col-span-8 mb-40 desktop:mb-8 transition-all duration-500 transform h-[252px] ${
                         showTypeBox
                             ? "opacity-100 scale-100 translate-y-0"
                             : "opacity-0 scale-95 translate-y-4 pointer-events-none"
                     }`}
                 >
                     {showTypeBox && (
-                        <div className="grid grid-cols-6 border-4 rounded-lg border-black p-2 gap-2">
+                        <div className="grid grid-cols-3 desktop:grid-cols-6 border-4 rounded-lg border-black p-2 gap-2">
                             {buttonTypes.map((buttonType) => {
                                 return (
                                     <button
@@ -118,7 +121,8 @@ export default function PokedexSite() {
                         </div>
                     )}
                 </div>
-                <div className="bg-black rounded-lg w-full flex space-around justify-center gap-12 py-2 col-span-3">
+                {/* layout select box  */}
+                <div className="bg-black rounded-lg w-full flex space-around justify-center gap-12 py-2 col-span-full">
                     <button
                         className="p-2 border-2 border-white rounded-sm text-white"
                         onClick={() => {
@@ -136,7 +140,8 @@ export default function PokedexSite() {
                         <FontAwesomeIcon icon={faGrip} />
                     </button>
                 </div>
-                <div>
+                {/* pokemon list  */}
+                <div className="hidden desktop:inline-block desktop:col-span-3">
                     {spriteImage !== undefined && (
                         <Image
                             src={spriteImage || ""}
@@ -148,7 +153,10 @@ export default function PokedexSite() {
                     )}
                 </div>
                 {dexLayout === "list" && (
-                    <div id="pokemon-card-wrapper" className="col-span-2">
+                    <div
+                        id="pokemon-card-wrapper"
+                        className="col-span-full desktop:col-span-2"
+                    >
                         {filteredList.map((pokemon) => {
                             return (
                                 <PokemonListCard
@@ -177,7 +185,7 @@ export default function PokedexSite() {
                 {dexLayout === "grid" && (
                     <div
                         id="pokemon-card-wrapper"
-                        className="col-span-3 grid grid-cols-3"
+                        className="col-span-full grid desktop:grid-cols-3 grid-cols-2"
                     >
                         {filteredList.map((pokemon) => {
                             return (

@@ -25,20 +25,20 @@ export default function PokemonListCard({
         <div
             className={`${getBackgroundColor(
                 pokemon.types[0]!.type.name as Type
-            )} items-center justify-between p-1.5 flex border-2 border-black rounded-3xl transition-all duration-500 ${
+            )} items-center justify-between p-1.5 flex border-2 border-black rounded-3xl transition-all duration-500 w-fit ${
                 listVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
             }`}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
-            <div className="flex items-center gap-4 font-bold text-5xl">
+            <div className="flex items-center gap-4 font-bold text-2xl desktop:text-5xl">
                 <span className="w-[4ch] text-center">{pokemon.id}</span>
                 <a href={`/detailedpokemon/${pokemon.id}`} className="w-[15ch]">
                     {pokemon.name}
                 </a>
             </div>
             {/* Ensures that there is always enough space for two types. */}
-            <div className="flex flex-col h-[72px]">
+            <div className="flex-col h-[72px] hidden desktop:flex">
                 {pokemon.types.map((type) => {
                     return (
                         <span
@@ -50,7 +50,7 @@ export default function PokemonListCard({
                     );
                 })}
             </div>
-            <div className="rounded-full h-[72px] w-[72px]">
+            <div className="rounded-full flex items-center desktop:h-[72px] desktop:w-[72px]">
                 <button
                     onClick={() => {
                         audioRef.current?.play();
@@ -61,6 +61,7 @@ export default function PokemonListCard({
                         alt="audio button"
                         width={96}
                         height={96}
+                        className="h-8 w-auto"
                     />
                     <audio ref={audioRef} src={pokemon.cries.legacy}></audio>
                 </button>
