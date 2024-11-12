@@ -72,7 +72,7 @@ export default function PokedexSite() {
     return (
         <Layout>
             {/* main content wrapper  */}
-            <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4 col-span-full content-start gap-x-12">
+            <div className="grid desktop:grid-cols-12 grid-cols-4 gap-y-4 col-span-full content-start gap-x-12">
                 {/* button wrapper  */}
                 <div className="flex flex-col gap-2 col-span-full desktop:col-span-4">
                     <button
@@ -93,6 +93,7 @@ export default function PokedexSite() {
                     </button>
                 </div>
                 {/* Ensures that there is enough space for the type filter container, so the elements positions below are not affected by it by the state. */}
+                {/* margin bottom 40 is necessary for enough space for the type filter container, so it wont overlap the elements below  */}
                 {/* type box  */}
                 <div
                     className={`col-span-full desktop:col-span-8 mb-40 desktop:mb-8 transition-all duration-500 transform h-[252px] ${
@@ -155,7 +156,7 @@ export default function PokedexSite() {
                 {dexLayout === "list" && (
                     <div
                         id="pokemon-card-wrapper"
-                        className="col-span-full desktop:col-span-2"
+                        className="col-span-full desktop:col-span-9"
                     >
                         {filteredList.map((pokemon) => {
                             return (

@@ -25,7 +25,7 @@ export default function PokemonListCard({
         <div
             className={`${getBackgroundColor(
                 pokemon.types[0]!.type.name as Type
-            )} items-center justify-between p-1.5 flex border-2 border-black rounded-3xl transition-all duration-500 w-fit ${
+            )} items-center justify-between p-1.5 flex border-2 border-black rounded-3xl transition-all duration-500 ${
                 listVisible ? "opacity-100 scale-y-100" : "opacity-0 scale-y-0"
             }`}
             onMouseEnter={onMouseEnter}
