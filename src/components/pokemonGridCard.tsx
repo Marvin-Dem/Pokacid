@@ -3,6 +3,7 @@ import type { Pokemon } from "pokenode-ts";
 import { useRef, useEffect, useState } from "react";
 import { getBackgroundColor } from "~/pages/pokedex-site";
 import { Type } from "~/utils/pokeTypes";
+import Link from "next/link";
 
 type PokemonCardProps = {
     pokemon: Pokemon;
@@ -20,13 +21,13 @@ export default function PokemonGridCard({ pokemon }: PokemonCardProps) {
             <div
                 className={`${getBackgroundColor(
                     pokemon.types[0]!.type.name as Type
-                )} justify-between p-2 flex border-2 border-black w-full rounded-3xl transition-all duration-500 ${
+                )}  justify-center desktop:justify-between p-2 flex border-2 border-black w-full rounded-3xl transition-all duration-500 ${
                     listVisible
                         ? "opacity-100 scale-y-100"
                         : "opacity-0 scale-y-0"
                 }`}
             >
-                <div className="flex flex-col gap-y-1 w-full">
+                <div className="flex-col gap-y-1 w-full hidden desktop:flex">
                     <div className="flex font-bold text-3xl gap-1">
                         <span className="w-[4ch]">{pokemon.id}</span>
                         <a
@@ -71,13 +72,18 @@ export default function PokemonGridCard({ pokemon }: PokemonCardProps) {
                     </div>
                 </div>
                 {pokemon.sprites.front_default !== null && (
-                    <Image
-                        src={pokemon.sprites.front_default}
-                        alt="pokemon sprite"
-                        width={96}
-                        height={96}
-                        className="p-2 h-32 w-32"
-                    />
+                    <Link
+                        href={`/detailedpokemon/${pokemon.id}`}
+                        className="flex items-center"
+                    >
+                        <Image
+                            src={pokemon.sprites.front_default}
+                            alt="pokemon sprite"
+                            width={96}
+                            height={96}
+                            className="p-2 h-auto w-32"
+                        />
+                    </Link>
                 )}
             </div>
         </div>
