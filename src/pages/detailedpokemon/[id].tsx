@@ -28,6 +28,8 @@ export default function DetailedPokemon() {
     const [abilities, setAbilities] = useState<Ability[]>();
     const [isShiny, setIsShiny] = useState<boolean>(false);
     const [evolutionChain, setEvolutionChain] = useState<EvolutionChain>();
+    const [evolutionSpecies, setEvolutionSpecies] =
+        useState<PokemonSpecies[]>();
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
     if (Array.isArray(router.query.id)) {
@@ -65,6 +67,13 @@ export default function DetailedPokemon() {
                     .getEvolutionChainById(evolutionId)
                     .then((evolutionChain) => {
                         setEvolutionChain(evolutionChain);
+                        const evolutionNames =
+                            evolutionChain.chain.evolves_to.map((chainLink) => {
+                                return chainLink.species.name;
+                            });
+                        const nameArray = [];
+                        nameArray.push(evolutionChain.chain.species.name);
+                        nameArray.push(evolutionNames);
                     })
                     .catch((reason) => {
                         console.log(reason);
@@ -185,7 +194,7 @@ export default function DetailedPokemon() {
                     </div>
                 </div>
                 {/* right wrapper */}
-                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start">
+                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start gap-2">
                     {/* Upper Detail Container */}
                     <div className="flex desktop:flex-row flex-col gap-8 col-span-full border-2 border-black rounded-lg p-3.5 bg-white/20">
                         {/* name wrapper */}
@@ -243,22 +252,21 @@ export default function DetailedPokemon() {
                                 src={pokemon.cries.legacy}
                             ></audio>
                         </button>
-                        <div className="grid grid-cols-3 gap-x-2 gap-y-1">
-                            <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
-                                {evolutionChain.chain.species.name}
-                            </div>
-                            {evolutionChain.chain.evolves_to.map(
-                                (chainLink) => {
-                                    return (
-                                        <EvolvesTo
-                                            key={chainLink.species.name}
-                                            chainLink={chainLink}
-                                            evoStage={1}
-                                        />
-                                    );
-                                }
-                            )}
+                    </div>
+                    {/* evolution wrapper  */}
+                    <div className="grid grid-cols-3 gap-x-2 gap-y-1 col-span-full border-2 border-black rounded-lg p-2 bg-white/20">
+                        <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
+                            {evolutionChain.chain.species.name}
                         </div>
+                        {evolutionChain.chain.evolves_to.map((chainLink) => {
+                            return (
+                                <EvolvesTo
+                                    key={chainLink.species.name}
+                                    chainLink={chainLink}
+                                    evoStage={1}
+                                />
+                            );
+                        })}
                     </div>
                 </div>
             </div>
@@ -329,7 +337,7 @@ function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
                     return "Evolution Condition not found yet.";
                 })()}
             </div>
-            <div className="border-2 border-black rounded-lg">
+            <div className="border-2 border-black rounded-lg text-xl p-1">
                 {chainLink.species.name}
             </div>
             {chainLink.evolves_to.map((evoChainLink) => {
