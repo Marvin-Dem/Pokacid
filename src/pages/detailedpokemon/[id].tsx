@@ -28,8 +28,9 @@ export default function DetailedPokemon() {
     const [abilities, setAbilities] = useState<Ability[]>();
     const [isShiny, setIsShiny] = useState<boolean>(false);
     const [evolutionChain, setEvolutionChain] = useState<EvolutionChain>();
-    const [evolutionSpecies, setEvolutionSpecies] =
-        useState<PokemonSpecies[]>();
+    const [evolutionSpecies, setEvolutionSpecies] = useState<PokemonSpecies[]>(
+        []
+    );
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
     if (Array.isArray(router.query.id)) {
@@ -67,13 +68,22 @@ export default function DetailedPokemon() {
                     .getEvolutionChainById(evolutionId)
                     .then((evolutionChain) => {
                         setEvolutionChain(evolutionChain);
-                        const evolutionNames =
-                            evolutionChain.chain.evolves_to.map((chainLink) => {
-                                return chainLink.species.name;
+                        const evolutionNames: string[] = [];
+                        function getEvolutionName(chainLink: ChainLink) {
+                            evolutionNames.push(chainLink.species.name);
+                            chainLink.evolves_to.forEach((chainLinkChild) => {
+                                getEvolutionName(chainLinkChild);
                             });
-                        const nameArray = [];
-                        nameArray.push(evolutionChain.chain.species.name);
-                        nameArray.push(evolutionNames);
+                        }
+                        getEvolutionName(evolutionChain.chain);
+                        const promises = evolutionNames.map((evolutionName) => {
+                            const promise =
+                                api.getPokemonSpeciesByName(evolutionName);
+                            return promise;
+                        });
+                        Promise.all(promises).then((evolutionSpecies) => {
+                            setEvolutionSpecies(evolutionSpecies);
+                        });
                     })
                     .catch((reason) => {
                         console.log(reason);
@@ -103,6 +113,22 @@ export default function DetailedPokemon() {
     const totalStats = pokemon.stats.reduce((total, current) => {
         return total + current.base_stat;
     }, 0);
+
+    const engName = pokemonSpecies.names.find(
+        (pokename) => pokename.language.name === "en"
+    );
+    if (engName === undefined) {
+        return "Pokemon Name is missing.";
+    }
+
+    const evolutionNames = evolutionSpecies.map((evolutionSpecies) => {
+        return evolutionSpecies.names.find(
+            (evolutionName) => evolutionName.language.name === "en"
+        );
+    });
+    if (evolutionNames === undefined) {
+        return "Pokemon Name is missing.";
+    }
 
     return (
         <Layout>
@@ -202,7 +228,7 @@ export default function DetailedPokemon() {
                             <div className="flex gap-3.5">
                                 <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>
                                 <span className="text-3xl font-bold">
-                                    {pokemon.name}
+                                    {engName.name}
                                 </span>
                             </div>
                             <div>
@@ -256,7 +282,7 @@ export default function DetailedPokemon() {
                     {/* evolution wrapper  */}
                     <div className="grid grid-cols-3 gap-x-2 gap-y-1 col-span-full border-2 border-black rounded-lg p-2 bg-white/20">
                         <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
-                            {evolutionChain.chain.species.name}
+                            {evolutionNames[0]?.name}
                         </div>
                         {evolutionChain.chain.evolves_to.map((chainLink) => {
                             return (
@@ -264,6 +290,7 @@ export default function DetailedPokemon() {
                                     key={chainLink.species.name}
                                     chainLink={chainLink}
                                     evoStage={1}
+                                    evolutionSpecies={evolutionSpecies}
                                 />
                             );
                         })}
@@ -277,9 +304,10 @@ export default function DetailedPokemon() {
 type EvolvesToProps = {
     chainLink: ChainLink;
     evoStage: number;
+    evolutionSpecies: PokemonSpecies[];
 };
 
-function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
+function EvolvesTo({ chainLink, evoStage, evolutionSpecies }: EvolvesToProps) {
     let className;
     if (evoStage < 1) {
         console.error("Value of evoStage is <1");
@@ -289,6 +317,17 @@ function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
     } else if (evoStage === 2) {
         className = "col-start-2";
     }
+    const pokemonSpecies = evolutionSpecies.find(
+        (pokemonSpecies) => chainLink.species.name === pokemonSpecies.name
+    );
+    if (pokemonSpecies === undefined) {
+        return null;
+    }
+
+    const engSpeciesName = pokemonSpecies.names.find(
+        (evolutionName) => evolutionName.language.name === "en"
+    );
+
     return (
         <>
             <div className={className}>
@@ -338,7 +377,7 @@ function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
                 })()}
             </div>
             <div className="border-2 border-black rounded-lg text-xl p-1">
-                {chainLink.species.name}
+                {engSpeciesName?.name}
             </div>
             {chainLink.evolves_to.map((evoChainLink) => {
                 return (
@@ -346,6 +385,7 @@ function EvolvesTo({ chainLink, evoStage }: EvolvesToProps) {
                         key={evoChainLink.species.name}
                         chainLink={evoChainLink}
                         evoStage={evoStage + 1}
+                        evolutionSpecies={evolutionSpecies}
                     />
                 );
             })}
