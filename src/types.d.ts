@@ -1,4 +1,4 @@
-import type { Pokemon } from "pokenode-ts";
+import type { NamedAPIResource, Pokemon } from "pokenode-ts";
 
 declare module "pokenode-ts" {
     interface Pokemon {
@@ -6,5 +6,8 @@ declare module "pokenode-ts" {
             latest: string;
             legacy: string;
         };
+    }
+    interface PokemonSpecies {
+        habitat: NamedAPIResource | null;
     }
 }

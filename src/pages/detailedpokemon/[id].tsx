@@ -13,6 +13,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { getBackgroundColor } from "~/pages/pokedex-site";
 import { Type } from "~/utils/pokeTypes";
+import Link from "next/link";
 
 const statMap = new Map();
 statMap.set("hp", "HP");
@@ -139,7 +140,7 @@ export default function DetailedPokemon() {
                         alt="Pokemon sprite"
                         width="96"
                         height="96"
-                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full"
+                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full hover:bg-white/30 transition-colors duration-300"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -240,7 +241,7 @@ export default function DetailedPokemon() {
                         {/* habitat gen wrapper */}
                         <div className="flex flex-col text-3xl gap-3.5">
                             <span className="text-3xl font-bold">
-                                habitat: {pokemonSpecies.habitat.name}{" "}
+                                habitat: {pokemonSpecies.habitat?.name || "-"}{" "}
                             </span>
                             <span className="text-3xl font-bold">
                                 existing since: Generation{" "}
@@ -281,9 +282,15 @@ export default function DetailedPokemon() {
                     </div>
                     {/* evolution wrapper  */}
                     <div className="grid grid-cols-3 gap-x-2 gap-y-1 col-span-full border-2 border-black rounded-lg p-2 bg-white/20">
-                        <div className="text-xl border-2 border-black rounded-lg p-1 gap-0.5">
-                            {evolutionNames[0]?.name}
-                        </div>
+                        {evolutionSpecies.length > 0 &&
+                            evolutionNames.length > 0 && (
+                                <Link
+                                    href={`/detailedpokemon/${evolutionSpecies[0]?.id}`}
+                                    className="text-xl border-2 border-black rounded-lg p-1 gap-0.5  hover:bg-white/30 transition-colors duration-300"
+                                >
+                                    {evolutionNames[0]?.name}
+                                </Link>
+                            )}
                         {evolutionChain.chain.evolves_to.map((chainLink) => {
                             return (
                                 <EvolvesTo
@@ -331,54 +338,60 @@ function EvolvesTo({ chainLink, evoStage, evolutionSpecies }: EvolvesToProps) {
     return (
         <>
             <div className={className}>
-                {(() => {
-                    const evoCondition = chainLink.evolution_details[0];
+                <div className={className}>
+                    {(() => {
+                        const evoCondition = chainLink.evolution_details[0];
 
-                    if (evoCondition === undefined) {
-                        return;
-                    }
-                    if (
-                        evoCondition.trigger.name === "level-up" &&
-                        evoCondition.min_level !== null
-                    ) {
-                        return `Level ${evoCondition.min_level}`;
-                    }
+                        if (evoCondition === undefined) {
+                            return;
+                        }
+                        if (
+                            evoCondition.trigger.name === "level-up" &&
+                            evoCondition.min_level !== null
+                        ) {
+                            return `Level ${evoCondition.min_level}`;
+                        }
 
-                    if (
-                        evoCondition.trigger.name === "trade" &&
-                        evoCondition.held_item !== null
-                    ) {
-                        return `Trade with ${evoCondition.held_item.name}`;
-                    }
+                        if (
+                            evoCondition.trigger.name === "trade" &&
+                            evoCondition.held_item !== null
+                        ) {
+                            return `Trade with ${evoCondition.held_item.name}`;
+                        }
 
-                    if (
-                        evoCondition.trigger.name === "trade" &&
-                        evoCondition.held_item === null
-                    ) {
-                        return "Trade";
-                    }
+                        if (
+                            evoCondition.trigger.name === "trade" &&
+                            evoCondition.held_item === null
+                        ) {
+                            return "Trade";
+                        }
 
-                    if (evoCondition.trigger.name === "use-item") {
-                        return evoCondition.item?.name;
-                    }
-                    if (evoCondition.min_happiness !== null) {
-                        return `Friendship Level ${evoCondition.min_happiness}`;
-                    }
-                    if (evoCondition.location !== null) {
-                        return `Level up at ${evoCondition.location?.name}`;
-                    }
-                    if (
-                        evoCondition.min_affection !== null &&
-                        evoCondition.trigger.name === "level-up"
-                    ) {
-                        return `Level up at min affection ${evoCondition.min_affection}`;
-                    }
-                    return "Evolution Condition not found yet.";
-                })()}
+                        if (evoCondition.trigger.name === "use-item") {
+                            return evoCondition.item?.name;
+                        }
+                        if (evoCondition.min_happiness !== null) {
+                            return `Friendship Level ${evoCondition.min_happiness}`;
+                        }
+                        if (evoCondition.location !== null) {
+                            return `Level up at ${evoCondition.location?.name}`;
+                        }
+                        if (
+                            evoCondition.min_affection !== null &&
+                            evoCondition.trigger.name === "level-up"
+                        ) {
+                            return `Level up at min affection ${evoCondition.min_affection}`;
+                        }
+                        return "Evolution Condition not found yet.";
+                    })()}
+                </div>
+                <div className="text-3xl"> {"\u21B3"} </div>
             </div>
-            <div className="border-2 border-black rounded-lg text-xl p-1">
+            <Link
+                href={`/detailedpokemon/${pokemonSpecies.id}`}
+                className="border-2 border-black rounded-lg text-xl p-1 flex items-center  hover:bg-white/30 transition-colors duration-300"
+            >
                 {engSpeciesName?.name}
-            </div>
+            </Link>
             {chainLink.evolves_to.map((evoChainLink) => {
                 return (
                     <EvolvesTo
