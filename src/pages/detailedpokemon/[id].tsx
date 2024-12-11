@@ -118,18 +118,12 @@ export default function DetailedPokemon() {
     const engName = pokemonSpecies.names.find(
         (pokename) => pokename.language.name === "en"
     );
-    if (engName === undefined) {
-        return "Pokemon Name is missing.";
-    }
 
     const evolutionNames = evolutionSpecies.map((evolutionSpecies) => {
         return evolutionSpecies.names.find(
             (evolutionName) => evolutionName.language.name === "en"
         );
     });
-    if (evolutionNames === undefined) {
-        return "Pokemon Name is missing.";
-    }
 
     return (
         <Layout>
@@ -229,7 +223,7 @@ export default function DetailedPokemon() {
                             <div className="flex gap-3.5">
                                 <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>
                                 <span className="text-3xl font-bold">
-                                    {engName.name}
+                                    {engName?.name || "-"}
                                 </span>
                             </div>
                             <div>
@@ -315,15 +309,11 @@ type EvolvesToProps = {
 };
 
 function EvolvesTo({ chainLink, evoStage, evolutionSpecies }: EvolvesToProps) {
-    let className;
     if (evoStage < 1) {
         console.error("Value of evoStage is <1");
         return null;
-    } else if (evoStage === 1) {
-        className = "col-start-1";
-    } else if (evoStage === 2) {
-        className = "col-start-2";
     }
+
     const pokemonSpecies = evolutionSpecies.find(
         (pokemonSpecies) => chainLink.species.name === pokemonSpecies.name
     );
@@ -337,8 +327,16 @@ function EvolvesTo({ chainLink, evoStage, evolutionSpecies }: EvolvesToProps) {
 
     return (
         <>
-            <div className={className}>
-                <div className={className}>
+            <div
+                className={
+                    evoStage === 1
+                        ? "col-start-1"
+                        : evoStage === 2
+                        ? "col-start-2"
+                        : undefined
+                }
+            >
+                <div>
                     {(() => {
                         const evoCondition = chainLink.evolution_details[0];
 
