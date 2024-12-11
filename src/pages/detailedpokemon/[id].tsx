@@ -1,12 +1,19 @@
 import Layout from "~/components/Layout";
 import { useRouter } from "next/router";
-import { api } from "~/utils/pokeAPI";
+import { api, evolutionApi } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
-import { Pokemon, PokemonSpecies, Ability } from "pokenode-ts";
+import {
+    Pokemon,
+    PokemonSpecies,
+    Ability,
+    EvolutionChain,
+    ChainLink,
+} from "pokenode-ts";
 import { useRef } from "react";
 import Image from "next/image";
 import { getBackgroundColor } from "~/pages/pokedex-site";
 import { Type } from "~/utils/pokeTypes";
+import Link from "next/link";
 
 const statMap = new Map();
 statMap.set("hp", "HP");
@@ -21,6 +28,10 @@ export default function DetailedPokemon() {
     const [pokemonSpecies, setPokemonSpecies] = useState<PokemonSpecies>();
     const [abilities, setAbilities] = useState<Ability[]>();
     const [isShiny, setIsShiny] = useState<boolean>(false);
+    const [evolutionChain, setEvolutionChain] = useState<EvolutionChain>();
+    const [evolutionSpecies, setEvolutionSpecies] = useState<PokemonSpecies[]>(
+        []
+    );
     const router = useRouter();
     const audioRef = useRef<HTMLAudioElement>(null);
     if (Array.isArray(router.query.id)) {
@@ -51,6 +62,33 @@ export default function DetailedPokemon() {
         api.getPokemonSpeciesById(id)
             .then((pokemonSpecies) => {
                 setPokemonSpecies(pokemonSpecies);
+                const url = pokemonSpecies.evolution_chain.url;
+                const parts = url.split("/");
+                const evolutionId = Number(parts[parts.length - 2]);
+                evolutionApi
+                    .getEvolutionChainById(evolutionId)
+                    .then((evolutionChain) => {
+                        setEvolutionChain(evolutionChain);
+                        const evolutionNames: string[] = [];
+                        function getEvolutionName(chainLink: ChainLink) {
+                            evolutionNames.push(chainLink.species.name);
+                            chainLink.evolves_to.forEach((chainLinkChild) => {
+                                getEvolutionName(chainLinkChild);
+                            });
+                        }
+                        getEvolutionName(evolutionChain.chain);
+                        const promises = evolutionNames.map((evolutionName) => {
+                            const promise =
+                                api.getPokemonSpeciesByName(evolutionName);
+                            return promise;
+                        });
+                        Promise.all(promises).then((evolutionSpecies) => {
+                            setEvolutionSpecies(evolutionSpecies);
+                        });
+                    })
+                    .catch((reason) => {
+                        console.log(reason);
+                    });
             })
             .catch((reason) => {
                 console.log(reason);
@@ -59,7 +97,8 @@ export default function DetailedPokemon() {
     if (
         pokemon === undefined ||
         pokemonSpecies === undefined ||
-        abilities === undefined
+        abilities === undefined ||
+        evolutionChain === undefined
     ) {
         return (
             <Layout>
@@ -76,6 +115,16 @@ export default function DetailedPokemon() {
         return total + current.base_stat;
     }, 0);
 
+    const engName = pokemonSpecies.names.find(
+        (pokename) => pokename.language.name === "en"
+    );
+
+    const evolutionNames = evolutionSpecies.map((evolutionSpecies) => {
+        return evolutionSpecies.names.find(
+            (evolutionName) => evolutionName.language.name === "en"
+        );
+    });
+
     return (
         <Layout>
             <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4">
@@ -85,7 +134,7 @@ export default function DetailedPokemon() {
                         alt="Pokemon sprite"
                         width="96"
                         height="96"
-                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full"
+                        className="pixelated w-full border-8 border-double border-black rounded-xl cursor-pointer bg-white/20 col-span-full hover:bg-white/30 transition-colors duration-300"
                         src={
                             isShiny
                                 ? pokemon.sprites.front_shiny!
@@ -166,7 +215,7 @@ export default function DetailedPokemon() {
                     </div>
                 </div>
                 {/* right wrapper */}
-                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start">
+                <div className="grid grid-cols-subgrid desktop:col-span-9 col-span-full content-start gap-2">
                     {/* Upper Detail Container */}
                     <div className="flex desktop:flex-row flex-col gap-8 col-span-full border-2 border-black rounded-lg p-3.5 bg-white/20">
                         {/* name wrapper */}
@@ -174,7 +223,7 @@ export default function DetailedPokemon() {
                             <div className="flex gap-3.5">
                                 <span className="text-3xl font-bold">{`#${pokemon.id}`}</span>
                                 <span className="text-3xl font-bold">
-                                    {pokemon.name}
+                                    {engName?.name || "-"}
                                 </span>
                             </div>
                             <div>
@@ -186,7 +235,7 @@ export default function DetailedPokemon() {
                         {/* habitat gen wrapper */}
                         <div className="flex flex-col text-3xl gap-3.5">
                             <span className="text-3xl font-bold">
-                                habitat: {pokemonSpecies.habitat.name}{" "}
+                                habitat: {pokemonSpecies.habitat?.name || "-"}{" "}
                             </span>
                             <span className="text-3xl font-bold">
                                 existing since: Generation{" "}
@@ -225,8 +274,132 @@ export default function DetailedPokemon() {
                             ></audio>
                         </button>
                     </div>
+                    {/* evolution wrapper  */}
+                    <div className="grid grid-cols-3 gap-x-2 gap-y-1 col-span-full border-2 border-black rounded-lg p-2 bg-white/20">
+                        {evolutionSpecies.length > 0 &&
+                            evolutionNames.length > 0 && (
+                                <Link
+                                    href={`/detailedpokemon/${evolutionSpecies[0]?.id}`}
+                                    className="text-xl border-2 border-black rounded-lg p-1 gap-0.5  hover:bg-white/30 transition-colors duration-300"
+                                >
+                                    {evolutionNames[0]?.name}
+                                </Link>
+                            )}
+                        {evolutionChain.chain.evolves_to.map((chainLink) => {
+                            return (
+                                <EvolvesTo
+                                    key={chainLink.species.name}
+                                    chainLink={chainLink}
+                                    evoStage={1}
+                                    evolutionSpecies={evolutionSpecies}
+                                />
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </Layout>
+    );
+}
+
+type EvolvesToProps = {
+    chainLink: ChainLink;
+    evoStage: number;
+    evolutionSpecies: PokemonSpecies[];
+};
+
+function EvolvesTo({ chainLink, evoStage, evolutionSpecies }: EvolvesToProps) {
+    if (evoStage < 1) {
+        console.error("Value of evoStage is <1");
+        return null;
+    }
+
+    const pokemonSpecies = evolutionSpecies.find(
+        (pokemonSpecies) => chainLink.species.name === pokemonSpecies.name
+    );
+    if (pokemonSpecies === undefined) {
+        return null;
+    }
+
+    const engSpeciesName = pokemonSpecies.names.find(
+        (evolutionName) => evolutionName.language.name === "en"
+    );
+
+    return (
+        <>
+            <div
+                className={
+                    evoStage === 1
+                        ? "col-start-1"
+                        : evoStage === 2
+                        ? "col-start-2"
+                        : undefined
+                }
+            >
+                <div>
+                    {(() => {
+                        const evoCondition = chainLink.evolution_details[0];
+
+                        if (evoCondition === undefined) {
+                            return;
+                        }
+                        if (
+                            evoCondition.trigger.name === "level-up" &&
+                            evoCondition.min_level !== null
+                        ) {
+                            return `Level ${evoCondition.min_level}`;
+                        }
+
+                        if (
+                            evoCondition.trigger.name === "trade" &&
+                            evoCondition.held_item !== null
+                        ) {
+                            return `Trade with ${evoCondition.held_item.name}`;
+                        }
+
+                        if (
+                            evoCondition.trigger.name === "trade" &&
+                            evoCondition.held_item === null
+                        ) {
+                            return "Trade";
+                        }
+
+                        if (evoCondition.trigger.name === "use-item") {
+                            return evoCondition.item?.name;
+                        }
+                        if (evoCondition.min_happiness !== null) {
+                            return `Friendship Level ${evoCondition.min_happiness}`;
+                        }
+                        if (evoCondition.location !== null) {
+                            return `Level up at ${evoCondition.location?.name}`;
+                        }
+                        if (
+                            evoCondition.min_affection !== null &&
+                            evoCondition.trigger.name === "level-up"
+                        ) {
+                            return `Level up at min affection ${evoCondition.min_affection}`;
+                        }
+                        return "Evolution Condition not found yet.";
+                    })()}
+                </div>
+                <div className="text-3xl"> {"\u21B3"} </div>
+            </div>
+            <Link
+                href={`/detailedpokemon/${pokemonSpecies.id}`}
+                className="border-2 border-black rounded-lg text-xl p-1 flex items-center  hover:bg-white/30 transition-colors duration-300"
+            >
+                {engSpeciesName?.name}
+            </Link>
+            {chainLink.evolves_to.map((evoChainLink) => {
+                return (
+                    <EvolvesTo
+                        key={evoChainLink.species.name}
+                        chainLink={evoChainLink}
+                        evoStage={evoStage + 1}
+                        evolutionSpecies={evolutionSpecies}
+                    />
+                );
+            })}
+        </>
     );
 }
