@@ -5,6 +5,13 @@ import Link from "next/link";
 export default function Home() {
     return (
         <Layout>
+            <meta charSet="UTF-8" />
+            <meta
+                name="description"
+                content="This is my first Pokemon based homepage."
+            />
+            <title>Pokacid</title>
+            <link rel="icon" type="image" href="/favicon-pokeball.png" />
             <p className="text-3xl text-center pt-2 font-semibold pb-24">
                 Hi, i`m Marvin! Or Acid, if you want! <br /> Feel free to
                 explore my first website!
