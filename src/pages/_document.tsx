@@ -5,6 +5,12 @@ export default function Document() {
         <Html lang="en">
             <Head />
             <body>
+                <meta
+                    name="description"
+                    content="This is my first Pokemon based homepage."
+                />
+                <title>Pokacid</title>
+                <link rel="icon" type="image" href="/favicon.png" />
                 <Main />
                 <NextScript />
             </body>
