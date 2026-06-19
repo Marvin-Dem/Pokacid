@@ -4,13 +4,35 @@ module.exports = {
     theme: {
         extend: {
             animation: {
-                sidebaropening: "sidebaropening 1.5s forwards -0.1s",
+                sidebaropening: "sidebaropening 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards",
                 pokeballopening: "pokeballopening 0.6s forwards 0.2s",
+                wobble: "wobble 0.5s ease-in-out",
+                pokepop: "pokepop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                shoot: "shoot 0.9s ease-out forwards",
             },
             keyframes: {
+                pokepop: {
+                    "0%":   { transform: "scale(1)" },
+                    "50%":  { transform: "scale(1.35)" },
+                    "100%": { transform: "scale(1)" },
+                },
+                shoot: {
+                    "0%":   { transform: "translateX(0)",    opacity: "0" },
+                    "20%":  {                                opacity: "1" },
+                    "100%": { transform: "translateX(60px)", opacity: "0" },
+                },
+                wobble: {
+                    "0%, 100%": { transform: "translateX(0)" },
+                    "15%": { transform: "translateX(-6px)" },
+                    "30%": { transform: "translateX(6px)" },
+                    "45%": { transform: "translateX(-5px)" },
+                    "60%": { transform: "translateX(5px)" },
+                    "75%": { transform: "translateX(-3px)" },
+                    "90%": { transform: "translateX(3px)" },
+                },
                 sidebaropening: {
-                    "0%": { marginLeft: "-200px", marginRight: "0" },
-                    "100%": { marginLeft: "0", marginRight: "-200px" },
+                    "0%": { transform: "translateX(-100%)" },
+                    "100%": { transform: "translateX(0)" },
                 },
                 pokeballopening: {
                     "0%": { "background-position-x": "-73px" },

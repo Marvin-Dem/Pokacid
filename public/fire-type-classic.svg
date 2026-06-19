@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="36" height="36">
+  <defs>
+    <radialGradient id="bgClassic" cx="45%" cy="38%" r="60%">
+      <stop offset="0%" stop-color="#FF7020"/>
+      <stop offset="55%" stop-color="#E02800"/>
+      <stop offset="100%" stop-color="#991500"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Circle — classic card energy shape -->
+  <circle cx="40" cy="40" r="37" fill="url(#bgClassic)" stroke="#7A0F00" stroke-width="2"/>
+
+  <!-- Classic flame: wide base, tapering to tip, inner curl -->
+  <path
+    d="
+      M40,14
+      C40,14 34,24 34,32
+      C30,28 30,20 28,18
+      C22,28 24,42 28,50
+      C24,47 22,40 22,36
+      C18,46 22,60 30,67
+      C34,71 46,71 50,67
+      C58,60 62,46 58,36
+      C58,40 56,47 52,50
+      C56,42 58,28 52,18
+      C50,20 50,28 46,32
+      C46,24 40,14 40,14 Z
+    "
+    fill="white"
+    fill-rule="evenodd"
+  />
+
+  <!-- Inner curl — gives it the classic card look -->
+  <ellipse cx="40" cy="55" rx="9" ry="6" fill="#E02800" opacity="0.35"/>
+</svg>

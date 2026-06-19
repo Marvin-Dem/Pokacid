@@ -4,7 +4,7 @@ import getPokemonByType, { Type, buttonTypes } from "~/utils/pokeTypes";
 import { getAllPokemon } from "~/utils/pokeAPI";
 import { useEffect, useState } from "react";
 import { Pokemon } from "pokenode-ts";
-import Layout from "~/components/Layout";
+import ThemedLayout from "~/components/ThemedLayout";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faGrip } from "@fortawesome/free-solid-svg-icons";
@@ -70,7 +70,7 @@ export default function PokedexSite() {
     }, []);
 
     return (
-        <Layout>
+        <ThemedLayout>
             {/* main content wrapper  */}
             <div className="grid desktop:grid-cols-12 grid-cols-4 gap-y-4 col-span-full content-start gap-x-12">
                 {/* button wrapper  */}
@@ -198,6 +198,6 @@ export default function PokedexSite() {
                     </div>
                 )}
             </div>
-        </Layout>
+        </ThemedLayout>
     );
 }

@@ -1,4 +1,4 @@
-import Layout from "~/components/Layout";
+import ThemedLayout from "~/components/ThemedLayout";
 import { useRouter } from "next/router";
 import { api, evolutionApi } from "~/utils/pokeAPI";
 import { Fragment, useEffect, useState } from "react";
@@ -101,9 +101,9 @@ export default function DetailedPokemon() {
         evolutionChain === undefined
     ) {
         return (
-            <Layout>
+            <ThemedLayout>
                 <p>Loading...</p>
-            </Layout>
+            </ThemedLayout>
         );
     }
     const japname = pokemonSpecies.names.find(
@@ -126,7 +126,7 @@ export default function DetailedPokemon() {
     });
 
     return (
-        <Layout>
+        <ThemedLayout>
             <div className="grid desktop:grid-cols-12 grid-cols-4 gap-4">
                 {/* left wrapper */}
                 <div className="grid gap-3.5 grid-cols-subgrid desktop:col-span-3 col-span-full content-start">
@@ -298,7 +298,7 @@ export default function DetailedPokemon() {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </ThemedLayout>
     );
 }
 
